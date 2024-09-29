@@ -5,7 +5,7 @@ pipeline{
 	 stage('Checkout GIT'){
 		steps{
 		 echo:'Pulling..'
-		 git branch :'Ikram_Dhib'
+		 git branch :'nihek_roui'
 		 url:'https://github.com/ikramdhib/StationSki5SAE2Devops.git'
 		 credentialsId:'StationSki2025'
 }
