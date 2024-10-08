@@ -17,15 +17,13 @@ pipeline {
             }
         }
 
-         stage('sonarCube') {
+         stage('sonarQube') {
             steps {
-                dir('gestion-station-ski') { // Change le répertoire ici
                     sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonar50711246@@'// Utilise mvnw pour exécuter Maven
                     
-                }
             }
-    }
+        }
         
-}
+    }
 }
 
