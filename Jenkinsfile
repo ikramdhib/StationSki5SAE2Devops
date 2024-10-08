@@ -16,6 +16,7 @@ pipeline {
                 sh 'mvn compile'
             }
         }
+
          stage('sonarCube') {
             steps {
                 dir('gestion-station-ski') { // Change le répertoire ici
@@ -24,5 +25,7 @@ pipeline {
                 }
             }
     }
+        
+}
 }
 
