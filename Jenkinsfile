@@ -19,7 +19,7 @@ pipeline {
 
          stage('sonarQube') {
             steps {
-                    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonar50711246@@'// Utilise mvnw pour exécuter Maven
+                    sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonar50711246@'// Utilise mvnw pour exécuter Maven
                     
             }
         }
