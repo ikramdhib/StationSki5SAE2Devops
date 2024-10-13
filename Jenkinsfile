@@ -6,7 +6,7 @@ pipeline {
             steps {
                 echo 'Pulling...'
                 git branch: 'Mariem', url: 'https://github.com/ikramdhib/StationSki5SAE2Devops.git',
-                credentialsId: 'StationSkiDevops'             }
+                credentialsId: 'GitHub-PAT-Jenkins'             }
         }
         stage('Build') {
             steps {
