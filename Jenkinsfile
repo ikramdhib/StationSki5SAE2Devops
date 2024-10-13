@@ -25,8 +25,8 @@ pipeline {
 
                 stage('Sonarqube') {
                             steps {
-                                echo 'Building with Maven...'
-                                sh 'mvn sonar:sonar -Dsonar.login=eee -Dsonar.password=Sonar.123456 -Dsonar.host.url=http://localhost:9000'
+                                echo 'Building with Sonar...'
+                                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonar.123456'
                             }
                         }
     }
