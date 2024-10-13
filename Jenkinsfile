@@ -14,5 +14,12 @@ pipeline {
                 sh 'mvn compile'
             }
         }
+
+          stage('Testing Maven') {
+                    steps {
+                        echo 'Test with Maven...'
+                        sh 'mvn -version'
+                    }
+                }
     }
 }
