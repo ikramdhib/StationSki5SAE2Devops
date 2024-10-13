@@ -21,5 +21,13 @@ pipeline {
                         sh 'mvn -version'
                     }
                 }
+
+
+                stage('Sonarqube') {
+                            steps {
+                                echo 'Building with Maven...'
+                                sh 'mvn sonar:sonar, -Dsonar.login=eee -Dsonar.password=Sonar.123456'
+                            }
+                        }
     }
 }
