@@ -23,7 +23,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-public class RegistrationTDO implements Serializable {
+public class RegistrationDTO implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -32,7 +32,7 @@ public class RegistrationTDO implements Serializable {
 
 	@JsonIgnore
 	@ManyToOne
-	private SkierTDO skier;
+	private SkierDTO skier;
 	@JsonIgnore
 	@ManyToOne
 	private CourseDTO course;

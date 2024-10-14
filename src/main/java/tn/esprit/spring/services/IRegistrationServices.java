@@ -6,9 +6,9 @@ import java.util.List;
 
 public interface IRegistrationServices {
 
-	RegistrationTDO addRegistrationAndAssignToSkier(RegistrationTDO registration, Long numSkier);
-	RegistrationTDO assignRegistrationToCourse(Long numRegistration, Long numCourse);
-	RegistrationTDO addRegistrationAndAssignToSkierAndCourse(RegistrationTDO registration, Long numSkieur, Long numCours);
+	RegistrationDTO addRegistrationAndAssignToSkier(RegistrationDTO registration, Long numSkier);
+	RegistrationDTO assignRegistrationToCourse(Long numRegistration, Long numCourse);
+	RegistrationDTO addRegistrationAndAssignToSkierAndCourse(RegistrationDTO registration, Long numSkieur, Long numCours);
 	List<Integer> numWeeksCourseOfInstructorBySupport(Long numInstructor, Support support);
 }
 

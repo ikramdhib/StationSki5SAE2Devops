@@ -4,8 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import tn.esprit.spring.entities.SkierTDO;
-import tn.esprit.spring.entities.SubscriptionTDO;
+import tn.esprit.spring.entities.SkierDTO;
+import tn.esprit.spring.entities.SubscriptionDTO;
 import tn.esprit.spring.entities.TypeSubscription;
 import tn.esprit.spring.repositories.ISkierRepository;
 import tn.esprit.spring.repositories.ISubscriptionRepository;
@@ -24,7 +24,7 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     private ISkierRepository skierRepository;
 
     @Override
-    public SubscriptionTDO addSubscription(SubscriptionTDO subscription) {
+    public SubscriptionDTO addSubscription(SubscriptionDTO subscription) {
         switch (subscription.getTypeSub()) {
             case ANNUAL:
                 subscription.setEndDate(subscription.getStartDate().plusYears(1));
@@ -40,30 +40,30 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     }
 
     @Override
-    public SubscriptionTDO updateSubscription(SubscriptionTDO subscription) {
+    public SubscriptionDTO updateSubscription(SubscriptionDTO subscription) {
         return subscriptionRepository.save(subscription);
     }
 
     @Override
-    public SubscriptionTDO retrieveSubscriptionById(Long numSubscription) {
+    public SubscriptionDTO retrieveSubscriptionById(Long numSubscription) {
         return subscriptionRepository.findById(numSubscription).orElse(null);
     }
 
     @Override
-    public Set<SubscriptionTDO> getSubscriptionByType(TypeSubscription type) {
+    public Set<SubscriptionDTO> getSubscriptionByType(TypeSubscription type) {
         return subscriptionRepository.findByTypeSubOrderByStartDateAsc(type);
     }
 
     @Override
-    public List<SubscriptionTDO> retrieveSubscriptionsByDates(LocalDate startDate, LocalDate endDate) {
+    public List<SubscriptionDTO> retrieveSubscriptionsByDates(LocalDate startDate, LocalDate endDate) {
         return subscriptionRepository.getSubscriptionsByStartDateBetween(startDate, endDate);
     }
 
 
     @Scheduled(cron = "*/30 * * * * *") /* Cron expression to run a job every 30 secondes */
     public void retrieveSubscriptions() {
-        for (SubscriptionTDO sub: subscriptionRepository.findDistinctOrderByEndDateAsc()) {
-            SkierTDO aSkier = skierRepository.findBySubscription(sub);
+        for (SubscriptionDTO sub: subscriptionRepository.findDistinctOrderByEndDateAsc()) {
+            SkierDTO aSkier = skierRepository.findBySubscription(sub);
             log.info(sub.getNumSub().toString() + " | "+ sub.getEndDate().toString()
                     + " | "+ aSkier.getFirstName() + " " + aSkier.getLastName());
         }

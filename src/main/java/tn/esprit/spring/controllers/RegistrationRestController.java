@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.spring.entities.RegistrationTDO;
+import tn.esprit.spring.entities.RegistrationDTO;
 import tn.esprit.spring.entities.Support;
 import tn.esprit.spring.services.IRegistrationServices;
 
@@ -19,14 +19,14 @@ public class RegistrationRestController {
 
     @Operation(description = "Add Registration and Assign to Skier")
     @PutMapping("/addAndAssignToSkier/{numSkieur}")
-    public RegistrationTDO addAndAssignToSkier(@RequestBody RegistrationTDO registration,
+    public RegistrationDTO addAndAssignToSkier(@RequestBody RegistrationDTO registration,
                                                @PathVariable("numSkieur") Long numSkieur)
     {
         return  registrationServices.addRegistrationAndAssignToSkier(registration,numSkieur);
     }
     @Operation(description = "Assign Registration to Course")
     @PutMapping("/assignToCourse/{numRegis}/{numSkieur}")
-    public RegistrationTDO assignToCourse( @PathVariable("numRegis") Long numRegistration,
+    public RegistrationDTO assignToCourse( @PathVariable("numRegis") Long numRegistration,
                                         @PathVariable("numSkieur") Long numCourse){
         return registrationServices.assignRegistrationToCourse(numRegistration, numCourse);
     }
@@ -34,7 +34,7 @@ public class RegistrationRestController {
 
     @Operation(description = "Add Registration and Assign to Skier and Course")
     @PutMapping("/addAndAssignToSkierAndCourse/{numSkieur}/{numCourse}")
-    public RegistrationTDO addAndAssignToSkierAndCourse(@RequestBody RegistrationTDO registration,
+    public RegistrationDTO addAndAssignToSkierAndCourse(@RequestBody RegistrationDTO registration,
                                                      @PathVariable("numSkieur") Long numSkieur,
                                                      @PathVariable("numCourse") Long numCourse)
     {

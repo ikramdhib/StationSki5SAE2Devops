@@ -4,7 +4,7 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.spring.entities.PisteTDO;
+import tn.esprit.spring.entities.PisteDTO;
 import tn.esprit.spring.services.IPisteServices;
 
 import java.util.List;
@@ -19,18 +19,18 @@ public class PisteRestController {
 
     @Operation(description = "Add Piste")
     @PostMapping("/add")
-    public PisteTDO addPiste(@RequestBody PisteTDO piste){
+    public PisteDTO addPiste(@RequestBody PisteDTO piste){
         return  pisteServices.addPiste(piste);
     }
     @Operation(description = "Retrieve all Pistes")
     @GetMapping("/all")
-    public List<PisteTDO> getAllPistes(){
+    public List<PisteDTO> getAllPistes(){
         return pisteServices.retrieveAllPistes();
     }
 
     @Operation(description = "Retrieve Piste by Id")
     @GetMapping("/get/{id-piste}")
-    public PisteTDO getById(@PathVariable("id-piste") Long numPiste){
+    public PisteDTO getById(@PathVariable("id-piste") Long numPiste){
         return pisteServices.retrievePiste(numPiste);
     }
 

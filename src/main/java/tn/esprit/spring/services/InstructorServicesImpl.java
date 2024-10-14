@@ -3,7 +3,7 @@ package tn.esprit.spring.services;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entities.CourseDTO;
-import tn.esprit.spring.entities.InstructorTDO;
+import tn.esprit.spring.entities.InstructorDTO;
 import tn.esprit.spring.repositories.ICourseRepository;
 import tn.esprit.spring.repositories.IInstructorRepository;
 
@@ -19,27 +19,27 @@ public class InstructorServicesImpl implements IInstructorServices{
     private ICourseRepository courseRepository;
 
     @Override
-    public InstructorTDO addInstructor(InstructorTDO instructor) {
+    public InstructorDTO addInstructor(InstructorDTO instructor) {
         return instructorRepository.save(instructor);
     }
 
     @Override
-    public List<InstructorTDO> retrieveAllInstructors() {
+    public List<InstructorDTO> retrieveAllInstructors() {
         return instructorRepository.findAll();
     }
 
     @Override
-    public InstructorTDO updateInstructor(InstructorTDO instructor) {
+    public InstructorDTO updateInstructor(InstructorDTO instructor) {
         return instructorRepository.save(instructor);
     }
 
     @Override
-    public InstructorTDO retrieveInstructor(Long numInstructor) {
+    public InstructorDTO retrieveInstructor(Long numInstructor) {
         return instructorRepository.findById(numInstructor).orElse(null);
     }
 
     @Override
-    public InstructorTDO addInstructorAndAssignToCourse(InstructorTDO instructor, Long numCourse) {
+    public InstructorDTO addInstructorAndAssignToCourse(InstructorDTO instructor, Long numCourse) {
         CourseDTO course = courseRepository.findById(numCourse).orElse(null);
         Set<CourseDTO> courseSet = new HashSet<>();
         courseSet.add(course);

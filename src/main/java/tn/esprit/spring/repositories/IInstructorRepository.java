@@ -1,10 +1,8 @@
 package tn.esprit.spring.repositories;
-
-
 import org.springframework.data.jpa.repository.JpaRepository;
-import tn.esprit.spring.entities.InstructorTDO;
+import tn.esprit.spring.entities.InstructorDTO;
 
 
-public interface IInstructorRepository extends JpaRepository<InstructorTDO, Long> {
+public interface IInstructorRepository extends JpaRepository<InstructorDTO, Long> {
 
 }

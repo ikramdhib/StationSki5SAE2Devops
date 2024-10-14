@@ -4,20 +4,20 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
-import tn.esprit.spring.entities.SubscriptionTDO;
+import tn.esprit.spring.entities.SubscriptionDTO;
 import tn.esprit.spring.entities.TypeSubscription;
 
 public interface ISubscriptionServices {
 
-	SubscriptionTDO addSubscription(SubscriptionTDO subscription);
+	SubscriptionDTO addSubscription(SubscriptionDTO subscription);
 
-	SubscriptionTDO updateSubscription(SubscriptionTDO subscription);
+	SubscriptionDTO updateSubscription(SubscriptionDTO subscription);
 
-	SubscriptionTDO retrieveSubscriptionById(Long numSubscription);
+	SubscriptionDTO retrieveSubscriptionById(Long numSubscription);
 
-	Set<SubscriptionTDO> getSubscriptionByType(TypeSubscription type);
+	Set<SubscriptionDTO> getSubscriptionByType(TypeSubscription type);
 
-	List<SubscriptionTDO> retrieveSubscriptionsByDates(LocalDate startDate, LocalDate endDate);
+	List<SubscriptionDTO> retrieveSubscriptionsByDates(LocalDate startDate, LocalDate endDate);
 
 
 }

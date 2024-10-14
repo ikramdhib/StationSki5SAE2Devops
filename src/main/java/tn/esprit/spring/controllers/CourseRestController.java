@@ -5,7 +5,6 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.CourseDTO;
-import tn.esprit.spring.entities.TypeCourse;
 import tn.esprit.spring.services.ICourseServices;
 
 import java.util.List;
@@ -32,8 +31,8 @@ public class CourseRestController {
 
     @Operation(description = "Update Course ")
     @PutMapping("/update")
-    public CourseDTO updateCourse(@RequestBody CourseDTO course){
-        return  courseServices.updateCourse(course);
+    public CourseDTO updateCourse(@RequestBody CourseDTO courseDTO){
+        return  courseServices.updateCourse(courseDTO);
     }
 
     @Operation(description = "Retrieve Course by Id")
