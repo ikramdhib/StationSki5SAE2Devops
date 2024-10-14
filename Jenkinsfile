@@ -20,9 +20,9 @@ pipeline {
 
          stage('sonarQube') {
             steps {
+              withCredentials([usernamePassword(credentialsId: 'sonarCredentials', usernameVariable: 'SONAR_USER', passwordVariable: 'SONAR_PASS')]) {
                     sh 'mvn sonar:sonar'
-                    credentialsId: 'sonarCredentials'
-
+                }
             }
         }
         
