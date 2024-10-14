@@ -21,18 +21,18 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-public class Skier implements Serializable {
+public class SkierTDO implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long numSkier;
-	String firstName;
-	String lastName;
-	LocalDate dateOfBirth;
-	String city;
+	private Long numSkier;
+	private String firstName;
+	private String lastName;
+	private LocalDate dateOfBirth;
+	private String city;
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-	Subscription subscription;
+	private SubscriptionTDO subscription;
 
 	@JsonIgnore
 	@ManyToMany
@@ -40,11 +40,11 @@ public class Skier implements Serializable {
 			name = "excursion",
 			joinColumns = @JoinColumn(name = "numSkier"),
 			inverseJoinColumns = @JoinColumn(name = "numPiste"))
-	private Set<Piste> pistes;
+	private Set<PisteTDO> pistes;
 
 
 	@OneToMany(mappedBy = "skier")
-	Set<Registration> registrations;
+	Set<RegistrationTDO> registrations;
 
 
 

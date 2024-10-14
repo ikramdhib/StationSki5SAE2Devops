@@ -1,27 +1,27 @@
 package tn.esprit.spring.services;
 
-import tn.esprit.spring.entities.Skier;
+import tn.esprit.spring.entities.SkierTDO;
 import tn.esprit.spring.entities.TypeSubscription;
 
 import java.util.List;
 
 public interface ISkierServices {
 
-	List<Skier> retrieveAllSkiers();
+	List<SkierTDO> retrieveAllSkiers();
 
-	Skier  addSkier(Skier  skier);
+	SkierTDO  addSkier(SkierTDO  skier);
 
-	Skier assignSkierToSubscription(Long numSkier, Long numSubscription);
+	SkierTDO assignSkierToSubscription(Long numSkier, Long numSubscription);
 
-	Skier addSkierAndAssignToCourse(Skier skier, Long numCourse);
+	SkierTDO addSkierAndAssignToCourse(SkierTDO skier, Long numCourse);
 
 	void removeSkier (Long numSkier);
 
-	Skier retrieveSkier (Long numSkier);
+	SkierTDO retrieveSkier (Long numSkier);
 
 
-	Skier assignSkierToPiste(Long numSkieur, Long numPiste);
+	SkierTDO assignSkierToPiste(Long numSkieur, Long numPiste);
 
-	List<Skier> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription);
+	List<SkierTDO> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription);
 
 }

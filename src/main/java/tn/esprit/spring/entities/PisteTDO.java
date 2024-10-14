@@ -5,7 +5,6 @@ import java.util.Set;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,18 +18,18 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-public class Piste implements Serializable {
+public class PisteTDO implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	Long numPiste;
-	String namePiste;
+	private Long numPiste;
+	private String namePiste;
 	@Enumerated(EnumType.STRING)
-	Color color;
-	int length;
-	int slope;
+	private Color color;
+	private int length;
+	private int slope;
 
 	@ManyToMany(mappedBy= "pistes")
-	Set<Skier> skiers;
+	private Set<Skier> skiers;
 	
 }

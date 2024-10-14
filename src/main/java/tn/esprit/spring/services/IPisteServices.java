@@ -1,16 +1,16 @@
 package tn.esprit.spring.services;
 
-import tn.esprit.spring.entities.Piste;
+import tn.esprit.spring.entities.PisteTDO;
 
 import java.util.List;
 
 public interface IPisteServices {
 
-    List<Piste> retrieveAllPistes();
+    List<PisteTDO> retrieveAllPistes();
 
-    Piste  addPiste(Piste  piste);
+    PisteTDO  addPiste(PisteTDO  piste);
 
     void removePiste (Long numPiste);
 
-    Piste retrievePiste (Long numPiste);
+    PisteTDO retrievePiste (Long numPiste);
 }

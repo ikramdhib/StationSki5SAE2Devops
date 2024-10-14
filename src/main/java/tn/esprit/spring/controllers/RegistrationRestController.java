@@ -4,10 +4,8 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.spring.entities.Instructor;
-import tn.esprit.spring.entities.Registration;
+import tn.esprit.spring.entities.RegistrationTDO;
 import tn.esprit.spring.entities.Support;
-import tn.esprit.spring.entities.TypeSubscription;
 import tn.esprit.spring.services.IRegistrationServices;
 
 import java.util.List;
@@ -21,14 +19,14 @@ public class RegistrationRestController {
 
     @Operation(description = "Add Registration and Assign to Skier")
     @PutMapping("/addAndAssignToSkier/{numSkieur}")
-    public Registration addAndAssignToSkier(@RequestBody Registration registration,
-                                                     @PathVariable("numSkieur") Long numSkieur)
+    public RegistrationTDO addAndAssignToSkier(@RequestBody RegistrationTDO registration,
+                                               @PathVariable("numSkieur") Long numSkieur)
     {
         return  registrationServices.addRegistrationAndAssignToSkier(registration,numSkieur);
     }
     @Operation(description = "Assign Registration to Course")
     @PutMapping("/assignToCourse/{numRegis}/{numSkieur}")
-    public Registration assignToCourse( @PathVariable("numRegis") Long numRegistration,
+    public RegistrationTDO assignToCourse( @PathVariable("numRegis") Long numRegistration,
                                         @PathVariable("numSkieur") Long numCourse){
         return registrationServices.assignRegistrationToCourse(numRegistration, numCourse);
     }
@@ -36,7 +34,7 @@ public class RegistrationRestController {
 
     @Operation(description = "Add Registration and Assign to Skier and Course")
     @PutMapping("/addAndAssignToSkierAndCourse/{numSkieur}/{numCourse}")
-    public Registration addAndAssignToSkierAndCourse(@RequestBody Registration registration,
+    public RegistrationTDO addAndAssignToSkierAndCourse(@RequestBody RegistrationTDO registration,
                                                      @PathVariable("numSkieur") Long numSkieur,
                                                      @PathVariable("numCourse") Long numCourse)
     {
