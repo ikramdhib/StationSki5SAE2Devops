@@ -33,6 +33,6 @@ public class CourseDTO implements Serializable {
 
 	@JsonIgnore
 	@OneToMany(mappedBy= "course")
-	private Set<RegistrationTDO> registrations;
+	private Set<RegistrationDTO> registrations;
 
 }
