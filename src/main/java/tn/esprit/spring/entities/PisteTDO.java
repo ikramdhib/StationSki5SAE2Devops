@@ -30,6 +30,6 @@ public class PisteTDO implements Serializable {
 	private int slope;
 
 	@ManyToMany(mappedBy= "pistes")
-	private Set<Skier> skiers;
+	private Set<SkierTDO> skiers;
 	
 }
