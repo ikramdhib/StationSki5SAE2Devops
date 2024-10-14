@@ -1,19 +1,21 @@
 package tn.esprit.spring.services;
 
-import tn.esprit.spring.entities.InstructorDTO;
+
+import tn.esprit.spring.entities.Instructor;
+import tn.esprit.spring.tdo.InstructorDTO;
 
 import java.util.List;
 
 public interface IInstructorServices {
 
-    InstructorDTO addInstructor(InstructorDTO instructor);
+    Instructor addInstructor(InstructorDTO instructor);
 
-    List<InstructorDTO> retrieveAllInstructors();
+    List<Instructor> retrieveAllInstructors();
 
-    InstructorDTO updateInstructor(InstructorDTO instructor);
+    Instructor updateInstructor(InstructorDTO instructor);
 
-    InstructorDTO retrieveInstructor(Long numInstructor);
+    Instructor retrieveInstructor(Long numInstructor);
 
-    InstructorDTO addInstructorAndAssignToCourse(InstructorDTO instructor, Long numCourse);
+    Instructor addInstructorAndAssignToCourse(InstructorDTO instructor, Long numCourse);
 
 }

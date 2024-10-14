@@ -2,8 +2,9 @@ package tn.esprit.spring.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.spring.entities.PisteDTO;
+import tn.esprit.spring.entities.Piste;
 import tn.esprit.spring.repositories.IPisteRepository;
+import tn.esprit.spring.tdo.PisteDTO;
 
 import java.util.List;
 @AllArgsConstructor
@@ -13,12 +14,12 @@ public class PisteServicesImpl implements  IPisteServices{
     private IPisteRepository pisteRepository;
 
     @Override
-    public List<PisteDTO> retrieveAllPistes() {
+    public List<Piste> retrieveAllPistes() {
         return pisteRepository.findAll();
     }
 
     @Override
-    public PisteDTO addPiste(PisteDTO piste) {
+    public Piste addPiste(PisteDTO piste) {
         return pisteRepository.save(piste);
     }
 
@@ -28,7 +29,7 @@ public class PisteServicesImpl implements  IPisteServices{
     }
 
     @Override
-    public PisteDTO retrievePiste(Long numPiste) {
+    public Piste retrievePiste(Long numPiste) {
         return pisteRepository.findById(numPiste).orElse(null);
     }
 }

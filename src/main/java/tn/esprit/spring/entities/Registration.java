@@ -1,10 +1,14 @@
 package tn.esprit.spring.entities;
 
 import java.io.Serializable;
-import java.time.LocalDate;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,15 +23,17 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-public class SubscriptionDTO implements Serializable {
+public class Registration implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long numSub;
-	private LocalDate startDate;
-	private LocalDate endDate;
-	private Float price;
-//	@Enumerated(EnumType.STRING)
-	TypeSubscription typeSub;
+	private Long numRegistration;
+	private int numWeek;
 
+	@JsonIgnore
+	@ManyToOne
+	private Skier skier;
+	@JsonIgnore
+	@ManyToOne
+	private Course course;
 }

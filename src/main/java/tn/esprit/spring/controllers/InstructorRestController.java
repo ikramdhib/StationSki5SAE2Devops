@@ -4,8 +4,9 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.spring.entities.InstructorDTO;
+import tn.esprit.spring.entities.Instructor;
 import tn.esprit.spring.services.IInstructorServices;
+import tn.esprit.spring.tdo.InstructorDTO;
 
 import java.util.List;
 
@@ -19,29 +20,29 @@ public class InstructorRestController {
 
     @Operation(description = "Add Instructor")
     @PostMapping("/add")
-    public InstructorDTO addInstructor(@RequestBody InstructorDTO instructor){
-        return  instructorServices.addInstructor(instructor);
+    public Instructor addInstructor(@RequestBody InstructorDTO instructorDTO){
+        return  instructorServices.addInstructor(instructorDTO);
     }
     @Operation(description = "Add Instructor and Assign To Course")
     @PutMapping("/addAndAssignToCourse/{numCourse}")
-    public InstructorDTO addAndAssignToInstructor(@RequestBody InstructorDTO instructor, @PathVariable("numCourse")Long numCourse){
+    public Instructor addAndAssignToInstructor(@RequestBody InstructorDTO instructor, @PathVariable("numCourse")Long numCourse){
         return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);
     }
     @Operation(description = "Retrieve all Instructors")
     @GetMapping("/all")
-    public List<InstructorDTO> getAllInstructors(){
+    public List<Instructor> getAllInstructors(){
         return instructorServices.retrieveAllInstructors();
     }
 
     @Operation(description = "Update Instructor ")
     @PutMapping("/update")
-    public InstructorDTO updateInstructor(@RequestBody InstructorDTO instructorTDO){
+    public Instructor updateInstructor(@RequestBody InstructorDTO instructorTDO){
         return  instructorServices.updateInstructor(instructorTDO);
     }
 
     @Operation(description = "Retrieve Instructor by Id")
     @GetMapping("/get/{id-instructor}")
-    public InstructorDTO getById(@PathVariable("id-instructor") Long numInstructor){
+    public Instructor getById(@PathVariable("id-instructor") Long numInstructor){
         return instructorServices.retrieveInstructor(numInstructor);
     }
 

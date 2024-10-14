@@ -2,10 +2,11 @@ package tn.esprit.spring.services;
 
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import tn.esprit.spring.entities.CourseDTO;
-import tn.esprit.spring.entities.InstructorDTO;
+import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.entities.Instructor;
 import tn.esprit.spring.repositories.ICourseRepository;
 import tn.esprit.spring.repositories.IInstructorRepository;
+import tn.esprit.spring.tdo.InstructorDTO;
 
 import java.util.HashSet;
 import java.util.List;
@@ -19,29 +20,29 @@ public class InstructorServicesImpl implements IInstructorServices{
     private ICourseRepository courseRepository;
 
     @Override
-    public InstructorDTO addInstructor(InstructorDTO instructor) {
+    public Instructor addInstructor(InstructorDTO instructor) {
         return instructorRepository.save(instructor);
     }
 
     @Override
-    public List<InstructorDTO> retrieveAllInstructors() {
+    public List<Instructor> retrieveAllInstructors() {
         return instructorRepository.findAll();
     }
 
     @Override
-    public InstructorDTO updateInstructor(InstructorDTO instructor) {
+    public Instructor updateInstructor(InstructorDTO instructor) {
         return instructorRepository.save(instructor);
     }
 
     @Override
-    public InstructorDTO retrieveInstructor(Long numInstructor) {
+    public Instructor retrieveInstructor(Long numInstructor) {
         return instructorRepository.findById(numInstructor).orElse(null);
     }
 
     @Override
-    public InstructorDTO addInstructorAndAssignToCourse(InstructorDTO instructor, Long numCourse) {
-        CourseDTO course = courseRepository.findById(numCourse).orElse(null);
-        Set<CourseDTO> courseSet = new HashSet<>();
+    public Instructor addInstructorAndAssignToCourse(InstructorDTO instructor, Long numCourse) {
+        Course course = courseRepository.findById(numCourse).orElse(null);
+        Set<Course> courseSet = new HashSet<>();
         courseSet.add(course);
         instructor.setCourses(courseSet);
         return instructorRepository.save(instructor);

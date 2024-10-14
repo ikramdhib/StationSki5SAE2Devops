@@ -4,9 +4,10 @@ import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.spring.entities.RegistrationDTO;
+import tn.esprit.spring.entities.Registration;
 import tn.esprit.spring.entities.Support;
 import tn.esprit.spring.services.IRegistrationServices;
+import tn.esprit.spring.tdo.RegistrationDTO;
 
 import java.util.List;
 
@@ -19,14 +20,14 @@ public class RegistrationRestController {
 
     @Operation(description = "Add Registration and Assign to Skier")
     @PutMapping("/addAndAssignToSkier/{numSkieur}")
-    public RegistrationDTO addAndAssignToSkier(@RequestBody RegistrationDTO registration,
-                                               @PathVariable("numSkieur") Long numSkieur)
+    public Registration addAndAssignToSkier(@RequestBody RegistrationDTO registration,
+                                            @PathVariable("numSkieur") Long numSkieur)
     {
         return  registrationServices.addRegistrationAndAssignToSkier(registration,numSkieur);
     }
     @Operation(description = "Assign Registration to Course")
     @PutMapping("/assignToCourse/{numRegis}/{numSkieur}")
-    public RegistrationDTO assignToCourse( @PathVariable("numRegis") Long numRegistration,
+    public Registration assignToCourse( @PathVariable("numRegis") Long numRegistration,
                                         @PathVariable("numSkieur") Long numCourse){
         return registrationServices.assignRegistrationToCourse(numRegistration, numCourse);
     }
@@ -34,7 +35,7 @@ public class RegistrationRestController {
 
     @Operation(description = "Add Registration and Assign to Skier and Course")
     @PutMapping("/addAndAssignToSkierAndCourse/{numSkieur}/{numCourse}")
-    public RegistrationDTO addAndAssignToSkierAndCourse(@RequestBody RegistrationDTO registration,
+    public Registration addAndAssignToSkierAndCourse(@RequestBody RegistrationDTO registration,
                                                      @PathVariable("numSkieur") Long numSkieur,
                                                      @PathVariable("numCourse") Long numCourse)
     {

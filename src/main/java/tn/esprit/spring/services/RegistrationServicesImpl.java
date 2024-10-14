@@ -7,6 +7,9 @@ import tn.esprit.spring.entities.*;
 import tn.esprit.spring.repositories.ICourseRepository;
 import tn.esprit.spring.repositories.IRegistrationRepository;
 import tn.esprit.spring.repositories.ISkierRepository;
+import tn.esprit.spring.tdo.CourseDTO;
+import tn.esprit.spring.tdo.RegistrationDTO;
+import tn.esprit.spring.tdo.SkierDTO;
 
 import javax.transaction.Transactional;
 import java.time.LocalDate;
@@ -23,31 +26,31 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
 
 
     @Override
-    public RegistrationDTO addRegistrationAndAssignToSkier(RegistrationDTO registration, Long numSkier) {
-        SkierDTO skier = skierRepository.findById(numSkier).orElse(null);
+    public Registration addRegistrationAndAssignToSkier(RegistrationDTO registration, Long numSkier) {
+        Skier skier = skierRepository.findById(numSkier).orElse(null);
         registration.setSkier(skier);
         return registrationRepository.save(registration);
     }
 
     @Override
-    public RegistrationDTO assignRegistrationToCourse(Long numRegistration, Long numCourse) {
-        RegistrationDTO registration = registrationRepository.findById(numRegistration).orElse(null);
-        CourseDTO course = courseRepository.findById(numCourse).orElse(null);
+    public Registration assignRegistrationToCourse(Long numRegistration, Long numCourse) {
+        Registration registration = registrationRepository.findById(numRegistration).orElse(null);
+        Course course = courseRepository.findById(numCourse).orElse(null);
         registration.setCourse(course);
         return registrationRepository.save(registration);
     }
 
     @Transactional
     @Override
-    public RegistrationDTO addRegistrationAndAssignToSkierAndCourse(RegistrationDTO registration, Long numSkieur, Long numCours) {
-        SkierDTO skier = skierRepository.findById(numSkieur).orElse(null);
-        CourseDTO course = courseRepository.findById(numCours).orElse(null);
+    public Registration addRegistrationAndAssignToSkierAndCourse(RegistrationDTO registration, Long numSkieur, Long numCours) {
+        Skier skier = skierRepository.findById(numSkieur).orElse(null);
+        Course course = courseRepository.findById(numCours).orElse(null);
 
         if (skier == null || course == null) {
             return null;
         }
 
-        if (isAlreadyRegisteredForCourse(registration, skier, course)) {
+        if (isAlreadyRegisteredForCourse(registration, (SkierDTO) skier, (CourseDTO) course)) {
             log.info("Sorry, you're already registered to this course for the week: " + registration.getNumWeek());
             return null;
         }
@@ -55,7 +58,7 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
         int ageSkieur = calculateAge(skier.getDateOfBirth());
         log.info("Age " + ageSkieur);
 
-        return processCourseRegistration(course, registration, skier, ageSkieur);
+        return processCourseRegistration((CourseDTO)course, registration,(SkierDTO) skier, ageSkieur);
     }
 
 // Helper Methods
@@ -69,7 +72,7 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
         return Period.between(dateOfBirth, LocalDate.now()).getYears();
     }
 
-    private RegistrationDTO processCourseRegistration(CourseDTO course, RegistrationDTO registration, SkierDTO skier, int ageSkieur) {
+    private Registration processCourseRegistration(CourseDTO course, RegistrationDTO registration, SkierDTO skier, int ageSkieur) {
         switch (course.getTypeCourse()) {
             case INDIVIDUAL:
                 log.info("Adding individual course without checks.");
@@ -83,7 +86,7 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
         }
     }
 
-    private RegistrationDTO handleChildCourseRegistration(RegistrationDTO registration, SkierDTO skier, CourseDTO course, int ageSkieur) {
+    private Registration handleChildCourseRegistration(RegistrationDTO registration, SkierDTO skier, CourseDTO course, int ageSkieur) {
         if (ageSkieur < 16) {
             log.info("Ok CHILD !");
             if (isCourseAvailableForWeek(course, registration.getNumWeek())) {
@@ -99,7 +102,7 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
         }
     }
 
-    private RegistrationDTO handleAdultCourseRegistration(RegistrationDTO registration, SkierDTO skier, CourseDTO course, int ageSkieur) {
+    private Registration handleAdultCourseRegistration(RegistrationDTO registration, SkierDTO skier, CourseDTO course, int ageSkieur) {
         if (ageSkieur >= 16) {
             log.info("Ok ADULT !");
             if (isCourseAvailableForWeek(course, registration.getNumWeek())) {
@@ -119,7 +122,7 @@ public class RegistrationServicesImpl implements  IRegistrationServices{
         return registrationRepository.countByCourseAndNumWeek(course, numWeek) < 6;
     }
 
-    private RegistrationDTO assignRegistration (RegistrationDTO registration, SkierDTO skier, CourseDTO course){
+    private Registration assignRegistration (RegistrationDTO registration, SkierDTO skier, CourseDTO course){
         registration.setSkier(skier);
         registration.setCourse(course);
         return registrationRepository.save(registration);

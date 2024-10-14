@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entities.*;
 import tn.esprit.spring.repositories.*;
+import tn.esprit.spring.tdo.*;
 
 import java.util.HashSet;
 import java.util.List;
@@ -25,12 +26,12 @@ public class SkierServicesImpl implements ISkierServices {
 
 
     @Override
-    public List<SkierDTO> retrieveAllSkiers() {
+    public List<Skier> retrieveAllSkiers() {
         return skierRepository.findAll();
     }
 
     @Override
-    public SkierDTO addSkier(SkierDTO skier) {
+    public Skier addSkier(SkierDTO skier) {
         switch (skier.getSubscription().getTypeSub()) {
             case ANNUAL:
                 skier.getSubscription().setEndDate(skier.getSubscription().getStartDate().plusYears(1));
@@ -46,9 +47,9 @@ public class SkierServicesImpl implements ISkierServices {
     }
 
     @Override
-    public SkierDTO assignSkierToSubscription(Long numSkier, Long numSubscription) {
-        SkierDTO skier = skierRepository.findById(numSkier).orElse(null);
-        SubscriptionDTO subscription = subscriptionRepository.findById(numSubscription).orElse(null);
+    public Skier assignSkierToSubscription(Long numSkier, Long numSubscription) {
+        Skier skier = skierRepository.findById(numSkier).orElse(null);
+        Subscription subscription = subscriptionRepository.findById(numSubscription).orElse(null);
         skier.setSubscription(subscription);
         return skierRepository.save(skier);
     }
@@ -56,9 +57,9 @@ public class SkierServicesImpl implements ISkierServices {
     @Override
     public SkierDTO addSkierAndAssignToCourse(SkierDTO skier, Long numCourse) {
         SkierDTO savedSkier = skierRepository.save(skier);
-        CourseDTO course = courseRepository.getById(numCourse);
-        Set<RegistrationDTO> registrations = savedSkier.getRegistrations();
-        for (RegistrationDTO r : registrations) {
+        Course course = courseRepository.getById(numCourse);
+        Set<Registration> registrations = savedSkier.getRegistrations();
+        for (Registration r : registrations) {
             r.setSkier(savedSkier);
             r.setCourse(course);
             registrationRepository.save(r);
@@ -72,18 +73,18 @@ public class SkierServicesImpl implements ISkierServices {
     }
 
     @Override
-    public SkierDTO retrieveSkier(Long numSkier) {
+    public Skier retrieveSkier(Long numSkier) {
         return skierRepository.findById(numSkier).orElse(null);
     }
 
     @Override
-    public SkierDTO assignSkierToPiste(Long numSkieur, Long numPiste) {
-        SkierDTO skier = skierRepository.findById(numSkieur).orElse(null);
-        PisteDTO piste = pisteRepository.findById(numPiste).orElse(null);
+    public Skier assignSkierToPiste(Long numSkieur, Long numPiste) {
+        Skier skier = skierRepository.findById(numSkieur).orElse(null);
+        Piste piste = pisteRepository.findById(numPiste).orElse(null);
         try {
             skier.getPistes().add(piste);
         } catch (NullPointerException exception) {
-            Set<PisteDTO> pisteList = new HashSet<>();
+            Set<Piste> pisteList = new HashSet<>();
             pisteList.add(piste);
             skier.setPistes(pisteList);
         }
@@ -92,7 +93,7 @@ public class SkierServicesImpl implements ISkierServices {
     }
 
     @Override
-    public List<SkierDTO> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription) {
+    public List<Skier> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription) {
         return skierRepository.findBySubscription_TypeSub(typeSubscription);
     }
 }

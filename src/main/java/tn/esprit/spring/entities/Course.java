@@ -1,12 +1,9 @@
 package tn.esprit.spring.entities;
 
 import java.io.Serializable;
+import java.util.Set;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
@@ -14,26 +11,28 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-public class RegistrationDTO implements Serializable {
+public class Course implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long numRegistration;
-	private int numWeek;
+	private Long numCourse;
+	private int level;
+	@Enumerated(EnumType.STRING)
+	private TypeCourse typeCourse;
+	@Enumerated(EnumType.STRING)
+	private Support support;
+	private Float price;
+	private int timeSlot;
 
 	@JsonIgnore
-	@ManyToOne
-	private SkierDTO skier;
-	@JsonIgnore
-	@ManyToOne
-	private CourseDTO course;
+	@OneToMany(mappedBy= "course")
+	private Set<Registration> registrations;
+
 }

@@ -2,7 +2,6 @@ package tn.esprit.spring.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -21,7 +20,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-public class SkierDTO implements Serializable {
+public class Skier implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -32,7 +31,7 @@ public class SkierDTO implements Serializable {
 	private String city;
 
 	@OneToOne(cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-	private SubscriptionDTO subscription;
+	private Subscription subscription;
 
 	@JsonIgnore
 	@ManyToMany
@@ -40,11 +39,11 @@ public class SkierDTO implements Serializable {
 			name = "excursion",
 			joinColumns = @JoinColumn(name = "numSkier"),
 			inverseJoinColumns = @JoinColumn(name = "numPiste"))
-	private Set<PisteDTO> pistes;
+	private Set<Piste> pistes;
 
 
 	@OneToMany(mappedBy = "skier")
-	Set<RegistrationDTO> registrations;
+	Set<Registration> registrations;
 
 
 

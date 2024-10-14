@@ -18,7 +18,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
-public class PisteDTO implements Serializable {
+public class Piste implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -30,6 +30,6 @@ public class PisteDTO implements Serializable {
 	private int slope;
 
 	@ManyToMany(mappedBy= "pistes")
-	private Set<SkierDTO> skiers;
+	private Set<Skier> skiers;
 	
 }
