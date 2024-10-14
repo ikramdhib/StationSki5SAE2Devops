@@ -11,8 +11,6 @@ import tn.esprit.spring.entities.Course;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 
 public class CourseDTO extends Course {

@@ -10,8 +10,6 @@ import tn.esprit.spring.entities.Piste;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class PisteDTO extends Piste {
 

@@ -16,8 +16,6 @@ import tn.esprit.spring.entities.Subscription;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class SubscriptionDTO extends Subscription {
 

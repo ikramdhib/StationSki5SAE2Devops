@@ -10,8 +10,6 @@ import tn.esprit.spring.entities.Instructor;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class InstructorDTO extends Instructor {
 

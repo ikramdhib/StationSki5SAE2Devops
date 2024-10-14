@@ -11,8 +11,6 @@ import tn.esprit.spring.entities.Skier;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class SkierDTO extends Skier {
 

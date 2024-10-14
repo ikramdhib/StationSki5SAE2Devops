@@ -13,8 +13,6 @@ import tn.esprit.spring.entities.Registration;
 @Getter
 @Setter
 @ToString
-@AllArgsConstructor
-@NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 public class RegistrationDTO extends Registration {
 
