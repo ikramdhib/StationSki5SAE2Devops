@@ -31,7 +31,7 @@ public class SkierServicesImpl implements ISkierServices {
     }
 
     @Override
-    public Skier addSkier(SkierDTO skier) {
+    public Skier addSkier(Skier skier) {
         switch (skier.getSubscription().getTypeSub()) {
             case ANNUAL:
                 skier.getSubscription().setEndDate(skier.getSubscription().getStartDate().plusYears(1));
@@ -58,8 +58,8 @@ public class SkierServicesImpl implements ISkierServices {
     }
 
     @Override
-    public SkierDTO addSkierAndAssignToCourse(SkierDTO skier, Long numCourse) {
-        SkierDTO savedSkier = skierRepository.save(skier);
+    public Skier addSkierAndAssignToCourse(Skier skier, Long numCourse) {
+        Skier savedSkier = skierRepository.save(skier);
         Course course = courseRepository.getById(numCourse);
         Set<Registration> registrations = savedSkier.getRegistrations();
         for (Registration r : registrations) {

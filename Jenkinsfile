@@ -25,7 +25,11 @@ pipeline {
                 }
             }
         }
-        
+        stage('MockTest') {
+                    steps {
+                     sh 'mvn test'
+                    }
+                }
     }
 }
 
