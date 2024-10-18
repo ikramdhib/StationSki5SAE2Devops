@@ -127,14 +127,15 @@ class SkierServicesImplTest {
         verify(skierRepository, times(3)).save(any(Skier.class));
     }
 
-    Skier skier = Skier.builder()
-            .numSkier(1l)
-            .firstName("John")
-            .lastName("Doe")
-            .subscription(null) // Initially no subscription
-            .build();
+
     @Test
     void assignSkierToSubscriptionTest() {
+        Skier skier = Skier.builder()
+                .numSkier(1L)
+                .firstName("John")
+                .lastName("Doe")
+                .subscription(null) // Initially no subscription
+                .build();
         // Test 1: Skier and Subscription found
         when(skierRepository.findById(1L)).thenReturn(java.util.Optional.of(skier));
         when(subscriptionRepository.findById(1L)).thenReturn(java.util.Optional.of(subscriptionAnnual));
@@ -156,7 +157,7 @@ class SkierServicesImplTest {
     }
 
     @Test
-    public void testAddSkierAndAssignToCourse() {
+     void testAddSkierAndAssignToCourse() {
         // Données de test
         Long numCourse = 1L;
 
@@ -198,7 +199,7 @@ class SkierServicesImplTest {
         verify(registrationRepository, times(1)).save(any(Registration.class));
     }
     @Test
-    public void testRemoveSkier() {
+     void testRemoveSkier() {
         // Données de test
         Long numSkier = 1L;
 
@@ -210,7 +211,7 @@ class SkierServicesImplTest {
     }
 
     @Test
-    public void testRetrieveSkier() {
+     void testRetrieveSkier() {
         // Données de test
         Long numSkier = 1L;
         Skier expectedSkier = Skier.builder()
@@ -243,7 +244,7 @@ class SkierServicesImplTest {
 
 
     @Test
-    public void testAssignSkierToPiste() {
+     void testAssignSkierToPiste() {
         // Données de test
         Long numSkieur = 1L;
         Long numPiste = 2L;
@@ -255,6 +256,7 @@ class SkierServicesImplTest {
                 .pistes(new HashSet<>())
                 .build();
 
+
         Piste piste = Piste.builder()
                 .namePiste("Piste A")
                 .build();
@@ -263,8 +265,7 @@ class SkierServicesImplTest {
         when(skierRepository.findById(numSkieur)).thenReturn(Optional.of(skier));
         when(pisteRepository.findById(numPiste)).thenReturn(Optional.of(piste));
 
-        // Exécution de la méthode à tester
-        Skier updatedSkier = skierServices.assignSkierToPiste(numSkieur, numPiste);
+      skierServices.assignSkierToPiste(numSkieur, numPiste);
 
 
         // Vérification que save a été appelé sur le skier
@@ -282,20 +283,10 @@ class SkierServicesImplTest {
         assertNull(resultWhenPisteNotFound);
     }
     @Test
-    public void testRetrieveSkiersBySubscriptionType() {
+     void testRetrieveSkiersBySubscriptionType() {
         // Données de test
         TypeSubscription subscriptionType = TypeSubscription.ANNUAL;
 
-        // Création des objets test
-        Subscription subscriptionAnnual = Subscription.builder()
-                .typeSub(TypeSubscription.ANNUAL)
-                .startDate(LocalDate.of(2024, 1, 1))
-                .build();
-
-        Subscription subscriptionMonthly = Subscription.builder()
-                .typeSub(TypeSubscription.MONTHLY)
-                .startDate(LocalDate.of(2024, 1, 1))
-                .build();
 
         Skier skier1 = Skier.builder()
                 .firstName("John")
@@ -309,7 +300,7 @@ class SkierServicesImplTest {
                 .subscription(subscriptionMonthly)
                 .build();
 
-        List<Skier> skiersList = Arrays.asList(skier1, skier2);
+         Arrays.asList(skier1, skier2);
 
         // Simuler le comportement du repository
         when(skierRepository.findBySubscription_TypeSub(subscriptionType)).thenReturn(Arrays.asList(skier1));

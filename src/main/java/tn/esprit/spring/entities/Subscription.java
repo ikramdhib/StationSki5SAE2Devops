@@ -6,7 +6,6 @@ import java.time.LocalDate;
 import javax.persistence.*;
 
 import lombok.*;
-import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
 @ToString

@@ -18,6 +18,12 @@ pipeline {
             }
         }
 
+        stage('Test') {
+             steps {
+                 sh 'mvn test'
+             }
+        }
+
          stage('sonarQube') {
             steps {
               withCredentials([usernamePassword(credentialsId: 'sonarCredentials', usernameVariable: 'SONAR_USER', passwordVariable: 'SONAR_PASS')]) {
@@ -25,11 +31,7 @@ pipeline {
                 }
             }
         }
-        stage('MockTest') {
-                    steps {
-                     sh 'mvn test'
-                    }
-                }
+
     }
 }
 
