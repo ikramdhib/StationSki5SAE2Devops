@@ -32,6 +32,14 @@ pipeline {
             }
         }
 
+        stage('Deployement') {
+               steps {
+                  withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                       sh "mvn deploy -DskipTests -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-snapshots/ -Dusername=$USERNAME -Dpassword=$PASSWORD"
+                  }
+               }
+        }
+
     }
 }
 
