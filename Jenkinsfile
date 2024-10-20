@@ -1,14 +1,21 @@
 pipeline {
     agent any
 
+    environment {
+        // Define the SonarQube server URL and the token from Jenkins credentials
+        SONAR_HOST_URL = 'http://localhost:9000' // Local SonarQube URL
+        SONAR_TOKEN = credentials('SONAR_TOKEN') // Fetch the token using the ID from Jenkins credentials
+    }
 
     stages {
         stage('Checkout GIT') {
             steps {
                 echo 'Pulling...'
                 git branch: 'Mariem', url: 'https://github.com/ikramdhib/StationSki5SAE2Devops.git',
-                credentialsId: 'GitHub-PAT-Jenkins'             }
+                credentialsId: 'GitHub-PAT-Jenkins'
+            }
         }
+
         stage('Build') {
             steps {
                 echo 'Building with Maven...'
@@ -16,19 +23,25 @@ pipeline {
             }
         }
 
-          stage('Testing Maven') {
-                    steps {
-                        echo 'Test with Maven...'
-                        sh 'mvn -version'
-                    }
-                }
+        stage('Testing Maven') {
+            steps {
+                echo 'Testing with Maven...'
+                sh 'mvn -version'
+            }
+        }
 
-   stage('SonarQube Analysis') {
+        stage('SonarQube Analysis') {
             steps {
                 echo 'Running SonarQube Analysis...'
-               withCredentials([string(credentialsId: 'SONAR_TOKEN_CREDENTIAL_ID', variable: 'SONAR_TOKEN')]) {
-                   sh "mvn sonar:sonar -Dsonar.projectKey=station-ski-devops -Dsonar.host.url=http://localhost:9000 -Dsonar.token=${SONAR_TOKEN} -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml"
-               }
+                withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
+                    sh """
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=station-ski-devops \
+                        -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.token=${SONAR_TOKEN} \
+                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
+                    """
+                }
             }
         }
     }
