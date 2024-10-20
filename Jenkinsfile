@@ -18,5 +18,12 @@ pipeline {
                 sh 'mvn compile'
             }
         }
+        stage('sonarQube') {
+             steps {
+                 withCredentials([usernamePassword(credentialsId: 'sonarcredit', usernameVariable: 'sonarU', passwordVariable: 'sonarp')]) {
+                 sh 'mvn sonar:sonar -Dsonar.login=$sonarU -Dsonar.password=$sonarp'
+             }
+          }
+        }
     }
 }
