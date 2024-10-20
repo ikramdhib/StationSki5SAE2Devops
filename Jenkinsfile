@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+       environment {
+            // Define the SonarQube server URL and the token from Jenkins credentials
+            SONAR_HOST_URL = 'http://localhost:9000' // Local SonarQube URL
+            SONAR_TOKEN = credentials('SONAR_TOKEN') // Fetch the token using the ID from Jenkins credentials
+        }
+
     stages {
         stage('Checkout GIT') {
             steps {
@@ -22,12 +28,18 @@ pipeline {
                     }
                 }
 
-
-                stage('Sonarqube') {
-                            steps {
-                                echo 'Building with Sonar...'
-                                sh 'mvn sonar:sonar -Dsonar.login=admin -Dsonar.password=Sonar.123456'
-                            }
-                        }
+   stage('SonarQube Analysis') {
+            steps {
+                echo 'Running SonarQube Analysis...'
+                withSonarQubeEnv('SonarQube') { // Ensure 'SonarQube' matches the name configured in Jenkins for your server
+                    sh """
+                        mvn sonar:sonar \
+                        -Dsonar.projectKey=station-ski-devops \
+                        -Dsonar.host.url=${SONAR_HOST_URL} \
+                        -Dsonar.login=${SONAR_TOKEN}
+                    """
+                }
+            }
+        }
     }
 }
