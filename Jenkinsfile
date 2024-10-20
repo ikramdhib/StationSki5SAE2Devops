@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        // Define the SonarQube server URL and the token from Jenkins credentials
-        SONAR_HOST_URL = 'http://localhost:9000' // Local SonarQube URL
-        SONAR_TOKEN = credentials('SONAR_TOKEN') // Fetch the token using the ID from Jenkins credentials
+       
+        SONAR_HOST_URL = 'http://localhost:9000'
+        SONAR_TOKEN = credentials('SONAR_TOKEN')
     }
 
     stages {
@@ -34,13 +34,7 @@ pipeline {
             steps {
                 echo 'Running SonarQube Analysis...'
                 withCredentials([string(credentialsId: 'SONAR_TOKEN', variable: 'SONAR_TOKEN')]) {
-                    sh """
-                        mvn sonar:sonar \
-                        -Dsonar.projectKey=station-ski-devops \
-                        -Dsonar.host.url=${SONAR_HOST_URL} \
-                        -Dsonar.token=${SONAR_TOKEN} \
-                        -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml
-                    """
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=station-ski-devops -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.token=${SONAR_TOKEN}  -Dsonar.coverage.jacoco.xmlReportPaths=target/site/jacoco/jacoco.xml'
                 }
             }
         }
