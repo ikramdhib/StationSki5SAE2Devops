@@ -32,6 +32,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     echo 'Running SonarQube analysis...'
+                    sh 'echo "SonarQube Token: ${SONARQUBE_TOKEN}"' // Debug line
                     sh 'mvn sonar:sonar -Dsonar.projectKey=gestion-station-ski -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${SONARQUBE_TOKEN}'
                 }
             }
