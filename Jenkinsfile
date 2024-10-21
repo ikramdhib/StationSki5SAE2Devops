@@ -3,6 +3,7 @@ pipeline {
 
     environment {
         SONARQUBE_SERVER = 'SonarQube'
+        SONARQUBE_TOKEN = credentials('sonar-token')
     }
 
     stages {
@@ -31,7 +32,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     echo 'Running SonarQube analysis...'
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=gestion-station-ski -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${SONARQUBE_SERVER}'
+                    sh 'mvn sonar:sonar -Dsonar.projectKey=gestion-station-ski -Dsonar.host.url=http://localhost:9000 -Dsonar.login=${SONARQUBE_TOKEN}'
                 }
             }
         }
