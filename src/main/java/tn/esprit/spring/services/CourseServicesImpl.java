@@ -29,8 +29,22 @@ public class CourseServicesImpl implements  ICourseServices{
     }
 
     @Override
+    public void deleteCourse(Long numCourse) {
+        courseRepository.deleteById(numCourse);
+    }
+
+    @Override
     public Course retrieveCourse(Long numCourse) {
         return courseRepository.findById(numCourse).orElse(null);
+    }
+    @Override
+    public List<Course> searchCourses(Integer level, TypeCourse typeCourse, Float minPrice, Float maxPrice) {
+        return courseRepository.findAllByCriteria(level, typeCourse, minPrice, maxPrice);
+    }
+
+    @Override
+    public List<Course> recommendCourses(TypeCourse typeCourse) {
+        return courseRepository.findByTypeCourse(typeCourse);
     }
 
 

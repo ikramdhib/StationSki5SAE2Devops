@@ -12,8 +12,11 @@ public interface ICourseServices {
     Course  addCourse(Course  course);
 
     Course updateCourse(Course course);
+    public void deleteCourse(Long numCourse);
 
     Course retrieveCourse(Long numCourse);
+    List<Course> searchCourses(Integer level, TypeCourse typeCourse, Float minPrice, Float maxPrice);
+    public List<Course> recommendCourses(TypeCourse typeCourse) ;
 
 
 }

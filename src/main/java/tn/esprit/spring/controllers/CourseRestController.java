@@ -15,7 +15,7 @@ import java.util.List;
 @RequestMapping("/course")
 @RequiredArgsConstructor
 public class CourseRestController {
-    
+
     private final ICourseServices courseServices;
 
     @Operation(description = "Add Course")
@@ -41,5 +41,25 @@ public class CourseRestController {
     public Course getById(@PathVariable("id-course") Long numCourse){
         return courseServices.retrieveCourse(numCourse);
     }
+    @DeleteMapping("/deleteCourse/{numCourse}")
+    public void deleteCourse(@PathVariable Long numCourse) {
+        courseServices.deleteCourse(numCourse);
+    }
+    @Operation(description = "Search Courses based on criteria")
+    @GetMapping("/search")
+    public List<Course> searchCourses(
+            @RequestParam(required = false) Integer level,
+            @RequestParam(required = false) TypeCourse typeCourse,
+            @RequestParam(required = false) Float minPrice,
+            @RequestParam(required = false) Float maxPrice) {
+        return courseServices.searchCourses(level, typeCourse, minPrice, maxPrice);
+    }
+
+    @GetMapping("/recommend")
+    public List<Course> recommendCourses(@RequestParam TypeCourse typeCourse) {
+        return courseServices.recommendCourses(typeCourse);
+    }
+
+
 
 }
