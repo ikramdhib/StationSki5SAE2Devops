@@ -10,7 +10,7 @@ import tn.esprit.spring.entities.TypeCourse;
 
 import java.util.List;
 
-
+import static org.junit.jupiter.api.Assertions.*;
 @ExtendWith(SpringExtension.class)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @SpringBootTest
