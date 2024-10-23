@@ -8,6 +8,7 @@ class GestionStationSkiApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// Cette méthode teste simplement si le contexte Spring se charge correctement
 	}
 
 }
