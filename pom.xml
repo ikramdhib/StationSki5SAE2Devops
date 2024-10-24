@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>1.8</java.version>
 		<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
+		<sonar.jacoco.reportPaths>target/jacoco.exec</sonar.jacoco.reportPaths>
 	</properties>
 	<distributionManagement>
 		<repository>
@@ -89,6 +90,7 @@
 							<artifactId>lombok</artifactId>
 						</exclude>
 					</excludes>
+					<outputDirectory>${project.build.directory}/jacoco-report</outputDirectory>
 				</configuration>
 			</plugin>
 
@@ -100,7 +102,7 @@
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
-				<version>0.8.7</version>
+				<version>0.8.8</version>
 				<executions>
 					<execution>
 						<goals>
@@ -115,7 +117,7 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>
+				</plugin>
 
 		</plugins>
 	</build>
