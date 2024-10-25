@@ -10,15 +10,7 @@ pipeline {
                     credentialsId: 'JenkinsPipeline'
             }
         }
-         stage('Verify Files') {
-                    steps {
-                        echo 'Current working directory:'
-                        sh 'pwd'  // Show current working directory
-                        echo 'Listing files in the workspace...'
-                        sh 'ls -la'  // List all files, including hidden ones
-                    }
-                }
-
+      
         stage('Build') {
             steps {
                 sh 'mvn compile'
@@ -65,11 +57,17 @@ pipeline {
                 }
             }
         }
+        stage('Validate Docker Compose') {
+            steps {
+                echo 'Validating Docker Compose file...'
+                sh 'docker-compose config'  // Validate the docker-compose.yml
+            }
+        }
 
        stage('Docker Compose') {
             steps {
                script {
-                  sh 'docker compose up -d'
+                  sh 'docker-compose up -d'
                }
             }
        }
