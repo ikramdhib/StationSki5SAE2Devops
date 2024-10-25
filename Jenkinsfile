@@ -62,7 +62,7 @@ pipeline {
         }
        stage('Run Docker Compose') {
            steps {
-               sh '/usr/libexec/docker/cli-plugins/docker-compose -f docker-compose.yml up -d'
+               sh 'docker compose up'
            }
        }
 
