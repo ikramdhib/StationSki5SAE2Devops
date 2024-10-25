@@ -57,17 +57,11 @@ pipeline {
                 }
             }
         }
-        stage('Validate Docker Compose') {
-            steps {
-                echo 'Validating Docker Compose file...'
-                sh '/var/lib/jenkins/.docker/cli-plugins/docker-compose config'  // Adjust the path as necessary
-            }
-        }
-        
+
        stage('Docker Compose') {
             steps {
                script {
-                  sh 'docker compose up -d'
+                   sh '/var/lib/jenkins/.docker/cli-plugins/docker-compose up -d'
                }
             }
        }
