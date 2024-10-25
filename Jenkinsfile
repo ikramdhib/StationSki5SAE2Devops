@@ -10,6 +10,14 @@ pipeline {
                     credentialsId: 'JenkinsPipeline'
             }
         }
+         stage('Verify Files') {
+                    steps {
+                        echo 'Current working directory:'
+                        sh 'pwd'  // Show current working directory
+                        echo 'Listing files in the workspace...'
+                        sh 'ls -la'  // List all files, including hidden ones
+                    }
+                }
 
         stage('Build') {
             steps {
