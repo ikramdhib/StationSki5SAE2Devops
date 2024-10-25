@@ -10,7 +10,7 @@ pipeline {
                     credentialsId: 'JenkinsPipeline'
             }
         }
-      
+
         stage('Build') {
             steps {
                 sh 'mvn compile'
@@ -60,14 +60,14 @@ pipeline {
         stage('Validate Docker Compose') {
             steps {
                 echo 'Validating Docker Compose file...'
-                sh 'docker-compose config'  // Validate the docker-compose.yml
+                sh 'docker compose config'  // Validate the docker-compose.yml
             }
         }
 
        stage('Docker Compose') {
             steps {
                script {
-                  sh 'docker-compose up -d'
+                  sh 'docker compose up -d'
                }
             }
        }
