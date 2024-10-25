@@ -59,22 +59,12 @@ pipeline {
             }
         }
 
-        stage('Docker Run') {
+       stage('Docker Compose') {
             steps {
-                script {
-                    // Lancer le conteneur Docker
-                    sh 'docker run -d -p 8089:8089 --name stationski_container stationski'
-                }
+               script {
+                  sh 'docker-compose up -d'
+               }
             }
-        }
-    }
-
-    post {
-        always {
-            // Nettoyer le conteneur après l'exécution pour éviter les conflits
-            script {
-                sh 'docker rm -f stationski_container || true'
-            }
-        }
+       }
     }
 }
