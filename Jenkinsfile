@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     // Construire l'image Docker
-                    sh 'docker build -t stationski:1.0 .'
+                    sh 'docker build -t ikramdhibikram/stationski:1.0 .'
                 }
             }
         }
