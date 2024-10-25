@@ -57,11 +57,10 @@ pipeline {
                 }
             }
         }
-
        stage('Docker Compose') {
             steps {
                script {
-                   sh '/var/lib/jenkins/.docker/cli-plugins/docker-compose up -d'
+                  sh 'docker compose up -d'
                }
             }
        }
