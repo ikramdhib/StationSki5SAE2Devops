@@ -67,7 +67,7 @@ pipeline {
                            sh 'ls -la'
 
                            // Run Docker Compose with a specific file path
-                           sh 'docker-compose -f docker-compose.yml up -d'
+                           sh 'docker compose -f docker-compose.yml up -d'
                        }
                    }
         }
