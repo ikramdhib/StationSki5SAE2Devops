@@ -43,7 +43,18 @@ pipeline {
             steps {
                 script {
                     // Construire l'image Docker
-                    sh 'docker build -t stationski .'
+                    sh 'docker build -t stationski:1.0 .'
+                }
+            }
+        }
+
+        stage('Docker Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    script {
+                        sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                        sh 'docker push ikramdhibikram/stationski:1.0'
+                    }
                 }
             }
         }
