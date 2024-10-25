@@ -60,10 +60,10 @@ pipeline {
         stage('Validate Docker Compose') {
             steps {
                 echo 'Validating Docker Compose file...'
-                sh 'docker compose config'  // Validate the docker-compose.yml
+                sh '/var/lib/jenkins/.docker/cli-plugins/docker-compose config'  // Adjust the path as necessary
             }
         }
-
+        
        stage('Docker Compose') {
             steps {
                script {
