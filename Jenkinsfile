@@ -1,6 +1,9 @@
 pipeline {
     agent any
-
+ environment {
+        // Add the path to the directory containing docker-compose
+        PATH = "/var/lib/jenkins/.docker/cli-plugins:$PATH"
+    }
     stages {
         stage('Checkout GIT') {
             steps {
