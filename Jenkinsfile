@@ -60,7 +60,7 @@ pipeline {
        stage('Docker Compose') {
             steps {
                script {
-                  sh 'docker compose -f docker-compose.yml logs'
+                  sh 'docker compose -f ./docker-compose.yml logs'
                }
             }
        }
