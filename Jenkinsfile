@@ -60,12 +60,16 @@ pipeline {
                 }
             }
         }
-       stage('Docker Compose') {
-            steps {
-               script {
-                  sh 'docker compose up -d'
-               }
-            }
-       }
+        stage('Run Docker Compose') {
+                   steps {
+                       script {
+                           // List files for debugging
+                           sh 'ls -la'
+
+                           // Run Docker Compose with a specific file path
+                           sh 'docker compose -f /var/lib/jenkins/workspace/pipeline/docker-compose.yml up -d'
+                       }
+                   }
+        }
     }
 }
