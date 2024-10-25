@@ -60,16 +60,11 @@ pipeline {
                 }
             }
         }
-        stage('Run Docker Compose') {
-                   steps {
-                       script {
-                           // List files for debugging
-                           sh 'ls -la'
+       stage('Run Docker Compose') {
+           steps {
+               sh '/usr/libexec/docker/cli-plugins/docker-compose -f docker-compose.yml up -d'
+           }
+       }
 
-                           // Run Docker Compose with a specific file path
-                           sh 'docker compose -f docker-compose.yml up -d'
-                       }
-                   }
-        }
     }
 }
