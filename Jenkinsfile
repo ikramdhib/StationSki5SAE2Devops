@@ -42,7 +42,6 @@ pipeline {
         stage('Docker Build') {
             steps {
                 script {
-                    // Construire l'image Docker
                     sh 'docker build -t ikramdhibikram/stationski:1.0 .'
                 }
             }
@@ -62,7 +61,7 @@ pipeline {
        stage('Docker Compose') {
             steps {
                script {
-                  sh 'docker compose up'
+                  sh 'docker compose up -d'
                }
             }
        }
