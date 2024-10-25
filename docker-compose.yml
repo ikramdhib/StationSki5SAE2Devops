@@ -13,6 +13,10 @@ services:
       - MYSQL_DATABASE=stationSki
     volumes:
       - db:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD", "mysqladmin", "ping", "-h", "localhost" ]
+      interval: 10s
+      retries: 5
 
   station-ski:
     depends_on:
