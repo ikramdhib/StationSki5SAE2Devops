@@ -2,6 +2,7 @@ version: "3.8"
 
 services:
   db-mysql:
+    container_name: db-mysql
     image: "mysql:latest"
     restart: unless-stopped
     ports:
