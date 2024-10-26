@@ -16,7 +16,6 @@
 	<properties>
 		<java.version>1.8</java.version>
 	<maven-jar-plugin.version>3.1.1</maven-jar-plugin.version>
-	<!--<sonar.jacoco.reportPaths>target/jacoco.exec</sonar.jacoco.reportPaths>-->
 </properties>
 	<distributionManagement>
 		<repository>
@@ -27,19 +26,16 @@
 	</distributionManagement>
 	<dependencies>
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-		</dependency>
-
-
-
-		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
 		</dependency>
 
 		<dependency>
@@ -68,6 +64,11 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.26</version>
+		</dependency>
 	</dependencies>
 
 	<build>
@@ -85,13 +86,7 @@
 					<outputDirectory>${project.build.directory}/jacoco-report</outputDirectory>
 				</configuration>
 			</plugin>
-
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>3.0.0</version>
-			</plugin>
-			<!--<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
 				<version>0.8.8</version>
@@ -109,7 +104,7 @@
 						</goals>
 					</execution>
 				</executions>
-				</plugin>-->
+				</plugin>
 
 		</plugins>
 	</build>
