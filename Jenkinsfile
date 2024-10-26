@@ -59,6 +59,9 @@ pipeline {
        stage('Run Docker Compose') {
            steps {
            dir('.') {
+               sh 'ls -la'
+               sh 'docker compose version'
+               sh 'docker compose -f docker/docker-compose.yml up'
                sh 'docker compose up'
                }
            }
