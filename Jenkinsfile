@@ -60,8 +60,8 @@ pipeline {
            steps {
            dir('.') {
                sh 'ls -la'
-               sh 'docker compose version'
                sh 'docker compose up'
+               sh 'docker-compose logs mysqldb'
                }
            }
        }
