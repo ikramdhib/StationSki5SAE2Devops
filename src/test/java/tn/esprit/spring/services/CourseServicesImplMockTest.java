@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 import static org.mockito.Mockito.times;
 
-@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 @ExtendWith(MockitoExtension.class)
 class CourseServicesImplMockTest {
     @InjectMocks
@@ -33,7 +32,7 @@ class CourseServicesImplMockTest {
     @BeforeEach
     void setUp(){
         MockitoAnnotations.openMocks(this);
-    } //initialiser les mocks
+    }
 
     @Test
     void retrieveAllCourses() {
