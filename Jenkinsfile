@@ -16,12 +16,13 @@ pipeline {
             }
         }
 
-        stage('Testing Maven') {
+        stage('Testing ') {
             steps {
                 echo 'Testing with Maven...'
-                sh 'mvn -version'
+                sh 'mvn test'
             }
         }
+
 
        stage('sonarQube') {
                    steps {
