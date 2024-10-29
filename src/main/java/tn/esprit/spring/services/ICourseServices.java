@@ -1,6 +1,5 @@
 package tn.esprit.spring.services;
 
-import tn.esprit.spring.TDO.CourseDTO;
 import tn.esprit.spring.entities.Course;
 import tn.esprit.spring.entities.TypeCourse;
 
@@ -10,9 +9,9 @@ public interface ICourseServices {
 
     List<Course> retrieveAllCourses();
 
-    Course  addCourse(CourseDTO course);
+    Course  addCourse(Course  course);
 
-    Course updateCourse(CourseDTO course);
+    Course updateCourse(Course course);
     public void deleteCourse(Long numCourse);
 
     Course retrieveCourse(Long numCourse);
