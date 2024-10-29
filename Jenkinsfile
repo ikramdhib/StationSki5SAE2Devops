@@ -1,6 +1,10 @@
 pipeline {
     agent any
     stages {
+    stage('Clean workspace') {
+        deleteDir()
+        sh 'ls -lah'
+    }
         stage('Checkout GIT') {
             steps {
                 echo 'Pulling from GitHub...'
