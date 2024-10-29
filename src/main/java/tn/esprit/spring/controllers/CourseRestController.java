@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Course;
 import tn.esprit.spring.entities.CourseDTO;
 import tn.esprit.spring.entities.TypeCourse;
+import tn.esprit.spring.services.CourseServicesImpl;
 import tn.esprit.spring.services.ICourseServices;
 
 import javax.validation.Valid;
@@ -30,23 +31,11 @@ public class CourseRestController {
 
     private final ICourseServices courseServices;
 
-    // Méthode pour convertir CourseDTO en Course
-    private Course convertToCourse(CourseDTO courseDTO) {
-        return Course.builder()
-                .title(courseDTO.getTitle())
-                .level(courseDTO.getLevel())
-                .typeCourse(courseDTO.getTypeCourse())
-                .description(courseDTO.getDescription())
-                .support(courseDTO.getSupport())
-                .price(courseDTO.getPrice())
-                .timeSlot(courseDTO.getTimeSlot())
-                .build();
-    }
 
     @Operation(description = "Add Course")
     @PostMapping(ADD_COURSE_URL)
     public ResponseEntity<Course> addCourse(@Valid @RequestBody CourseDTO courseDTO) {
-        Course course = convertToCourse(courseDTO);
+        Course course = courseServices.toCourse(courseDTO);
         Course addedCourse = courseServices.addCourse(course);
         return new ResponseEntity<>(addedCourse, HttpStatus.CREATED);
     }
@@ -61,7 +50,7 @@ public class CourseRestController {
     @Operation(description = "Update Course")
     @PutMapping(UPDATE_COURSE_URL)
     public ResponseEntity<Course> updateCourse(@RequestBody CourseDTO courseDTO) {
-        Course course = convertToCourse(courseDTO);
+        Course course = courseServices.toCourse(courseDTO);
         Course updatedCourse = courseServices.updateCourse(course);
         return new ResponseEntity<>(updatedCourse, HttpStatus.OK);
     }

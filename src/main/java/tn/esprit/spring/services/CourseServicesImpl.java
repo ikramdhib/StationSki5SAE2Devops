@@ -3,10 +3,13 @@ package tn.esprit.spring.services;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.entities.CourseDTO;
 import tn.esprit.spring.entities.TypeCourse;
 import tn.esprit.spring.repositories.ICourseRepository;
 
 import java.util.List;
+import java.util.NoSuchElementException;
+
 @AllArgsConstructor
 @Service
 public class CourseServicesImpl implements  ICourseServices{
@@ -35,7 +38,8 @@ public class CourseServicesImpl implements  ICourseServices{
 
     @Override
     public Course retrieveCourse(Long numCourse) {
-        return courseRepository.findById(numCourse).orElse(null);
+
+        return courseRepository.findById(numCourse).orElseThrow(() -> new NoSuchElementException("Course not found with id: " + numCourse));
     }
     @Override
     public List<Course> searchCourses(Integer level, TypeCourse typeCourse, Float minPrice, Float maxPrice) {
@@ -46,6 +50,17 @@ public class CourseServicesImpl implements  ICourseServices{
     public List<Course> recommendCourses(TypeCourse typeCourse) {
         return courseRepository.findByTypeCourse(typeCourse);
     }
+    @Override
+    public Course toCourse(CourseDTO courseDTO) {
+        return Course.builder()
+                .title(courseDTO.getTitle())
+                .level(courseDTO.getLevel())
+                .typeCourse(courseDTO.getTypeCourse())
+                .description(courseDTO.getDescription())
+                .support(courseDTO.getSupport())
+                .price(courseDTO.getPrice())
+                .timeSlot(courseDTO.getTimeSlot())
+                .build();
+        }
+    }
 
-
-}
