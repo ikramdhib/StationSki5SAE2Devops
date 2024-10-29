@@ -6,7 +6,7 @@ pipeline {
                 echo 'Pulling from GitHub...'
                 git branch: 'Ikram_Dhib',
                     url: 'https://github.com/ikramdhib/StationSki5SAE2Devops.git',
-
+                    credentialsId: 'JenkinsPipeline'
             }
         }
 
