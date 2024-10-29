@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Instructor;
+import tn.esprit.spring.entities.InstructorDTO;
 import tn.esprit.spring.services.IInstructorServices;
 
 import java.util.List;
@@ -19,12 +20,22 @@ public class InstructorRestController {
 
     @Operation(description = "Add Instructor")
     @PostMapping("/add")
-    public Instructor addInstructor(@RequestBody Instructor instructor){
+    public Instructor addInstructor(@RequestBody InstructorDTO instructorDTO){
+        Instructor instructor = Instructor.builder()
+                .firstName(instructorDTO.getFirstName())
+                .lastName(instructorDTO.getLastName())
+                .dateOfHire(instructorDTO.getDateOfHire())
+                .build();
         return  instructorServices.addInstructor(instructor);
     }
     @Operation(description = "Add Instructor and Assign To Course")
     @PutMapping("/addAndAssignToCourse/{numCourse}")
-    public Instructor addAndAssignToInstructor(@RequestBody Instructor instructor, @PathVariable("numCourse")Long numCourse){
+    public Instructor addAndAssignToInstructor(@RequestBody InstructorDTO instructorDTO, @PathVariable("numCourse")Long numCourse){
+        Instructor instructor = Instructor.builder()
+                .firstName(instructorDTO.getFirstName())
+                .lastName(instructorDTO.getLastName())
+                .dateOfHire(instructorDTO.getDateOfHire())
+                .build();
         return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);
     }
     @Operation(description = "Retrieve all Instructors")
@@ -35,7 +46,12 @@ public class InstructorRestController {
 
     @Operation(description = "Update Instructor ")
     @PutMapping("/update")
-    public Instructor updateInstructor(@RequestBody Instructor instructor ){
+    public Instructor updateInstructor(@RequestBody InstructorDTO instructorDTO ){
+        Instructor instructor = Instructor.builder()
+                .firstName(instructorDTO.getFirstName())
+                .lastName(instructorDTO.getLastName())
+                .dateOfHire(instructorDTO.getDateOfHire())
+                .build();
         return  instructorServices.updateInstructor(instructor);
     }
 

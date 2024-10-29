@@ -44,7 +44,7 @@ public class CourseRestController {
 
     @Operation(description = "Update Course ")
     @PutMapping("/update")
-    public Course updateCourse(@Valid @RequestBody CourseDTO courseDTO){
+    public Course updateCourse( @RequestBody CourseDTO courseDTO){
         // Convertir CourseDTO en Course
         Course course = Course.builder()
                 .title(courseDTO.getTitle())
