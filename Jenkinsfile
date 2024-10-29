@@ -5,7 +5,7 @@ pipeline {
             steps {
                 echo 'Pulling from GitHub...'
                 git branch: 'Ikram_Dhib',
-                    url: 'https://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@github.com/ikramdhib/StationSki5SAE2Devops.git',
+                    url: 'https://github.com/ikramdhib/StationSki5SAE2Devops.git',
 
             }
         }
