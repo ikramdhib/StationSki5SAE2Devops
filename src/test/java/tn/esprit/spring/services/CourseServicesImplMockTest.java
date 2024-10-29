@@ -106,16 +106,25 @@ class CourseServicesImplMockTest {
         TypeCourse typeCourse = TypeCourse.COLLECTIVE_CHILDREN;
         Float minPrice = 100.0f;
         Float maxPrice = 500.0f;
+        String description = "test";
 
         // Utilisation du Builder pour créer des cours
         List<Course> mockCourses = Arrays.asList(
                 Course.builder()
                         .level(level)
+                        .description(description)
+                        .support(Support.SKI)
+                        .price(10.0f)
+                        .timeSlot(1)
                         .typeCourse(typeCourse)
                         .price(200.0f)
                         .build(),
                 Course.builder()
-                        .level(level)
+                        .level(5)
+                        .description("test2")
+                        .support(Support.SKI)
+                        .price(10.0f)
+                        .timeSlot(1)
                         .typeCourse(typeCourse)
                         .price(300.0f)
                         .build()
@@ -141,12 +150,22 @@ class CourseServicesImplMockTest {
 
         Course course1 = Course.builder()
                 .title("Cours A")
+                .level(2)
+                .support(Support.SKI)
                 .typeCourse(typeCourse)
+                .description("test")
+                .price(10.0f)
+                .timeSlot(2)
                 .build();
 
         Course course2 = Course.builder()
                 .title("Cours B")
+                .level(3)
+                .support(Support.SKI)
                 .typeCourse(typeCourse)
+                .description("test")
+                .price(10.0f)
+                .timeSlot(2)
                 .build();
         when(courseRepository.findByTypeCourse(typeCourse)).thenReturn(Arrays.asList(course1, course2));
 
