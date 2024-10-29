@@ -33,7 +33,7 @@ public class CourseRestController {
 
     @Operation(description = "Add Course")
     @PostMapping(ADD_COURSE_URL)
-    public Course addCourse(@Valid @RequestBody CourseDTO courseDTO) {
+    public Course addCourse(@RequestBody CourseDTO courseDTO) {
         Course course = courseServices.toCourse(courseDTO);
         return courseServices.addCourse(course);
     }
