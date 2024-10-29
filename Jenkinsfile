@@ -69,13 +69,13 @@ pipeline {
                    steps {
                        withCredentials([usernamePassword(credentialsId: 'grafana-credentials', usernameVariable: 'GRAFANA_USER', passwordVariable: 'GRAFANA_PASS')]) {
                                               script {
-                                                  // Wait for Grafana to start
-                                                  sleep 30 // Adjust as needed
 
-                                                  // Define Prometheus URL; adjust if Prometheus runs on host
+                                                  sleep 30
                                                   def prometheusUrl = 'http://localhost:9090' // Adjust if necessary
 
                                                   sh """
+                                                  curl -X DELETE -H "Authorization: Basic \$(echo -n \$GRAFANA_USER:\$GRAFANA_PASS | base64)" \
+                                                  http://localhost:3000/api/datasources/name/Prometheus
                                                   curl -X POST -H "Authorization: Basic \$(echo -n \$GRAFANA_USER:\$GRAFANA_PASS | base64)" \
                                                   -H "Content-Type: application/json" \
                                                   -d '{
