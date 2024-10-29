@@ -3,6 +3,8 @@ package tn.esprit.spring.controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Instructor;
 import tn.esprit.spring.entities.InstructorDTO;
@@ -16,49 +18,62 @@ import java.util.List;
 @RequiredArgsConstructor
 public class InstructorRestController {
 
+    private static final String ADD_INSTRUCTOR_URL = "/add";
+    private static final String ADD_ASSIGN_INSTRUCTOR_URL = "/addAndAssignToCourse/{numCourse}";
+    private static final String GET_ALL_INSTRUCTORS_URL = "/all";
+    private static final String UPDATE_INSTRUCTOR_URL = "/update";
+    private static final String GET_INSTRUCTOR_BY_ID_URL = "/get/{id-instructor}";
+
     private final IInstructorServices instructorServices;
 
-    @Operation(description = "Add Instructor")
-    @PostMapping("/add")
-    public Instructor addInstructor(@RequestBody InstructorDTO instructorDTO){
-        Instructor instructor = Instructor.builder()
+    // Méthode pour convertir InstructorDTO en Instructor
+    private Instructor convertToInstructor(InstructorDTO instructorDTO) {
+        return Instructor.builder()
                 .firstName(instructorDTO.getFirstName())
                 .lastName(instructorDTO.getLastName())
                 .dateOfHire(instructorDTO.getDateOfHire())
                 .build();
-        return  instructorServices.addInstructor(instructor);
-    }
-    @Operation(description = "Add Instructor and Assign To Course")
-    @PutMapping("/addAndAssignToCourse/{numCourse}")
-    public Instructor addAndAssignToInstructor(@RequestBody InstructorDTO instructorDTO, @PathVariable("numCourse")Long numCourse){
-        Instructor instructor = Instructor.builder()
-                .firstName(instructorDTO.getFirstName())
-                .lastName(instructorDTO.getLastName())
-                .dateOfHire(instructorDTO.getDateOfHire())
-                .build();
-        return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);
-    }
-    @Operation(description = "Retrieve all Instructors")
-    @GetMapping("/all")
-    public List<Instructor> getAllInstructors(){
-        return instructorServices.retrieveAllInstructors();
     }
 
-    @Operation(description = "Update Instructor ")
-    @PutMapping("/update")
-    public Instructor updateInstructor(@RequestBody InstructorDTO instructorDTO ){
-        Instructor instructor = Instructor.builder()
-                .firstName(instructorDTO.getFirstName())
-                .lastName(instructorDTO.getLastName())
-                .dateOfHire(instructorDTO.getDateOfHire())
-                .build();
-        return  instructorServices.updateInstructor(instructor);
+    @Operation(description = "Add Instructor")
+    @PostMapping(ADD_INSTRUCTOR_URL)
+    public ResponseEntity<Instructor> addInstructor(@RequestBody InstructorDTO instructorDTO) {
+        Instructor instructor = convertToInstructor(instructorDTO);
+        Instructor addedInstructor = instructorServices.addInstructor(instructor);
+        return new ResponseEntity<>(addedInstructor, HttpStatus.CREATED);
+    }
+
+    @Operation(description = "Add Instructor and Assign To Course")
+    @PutMapping(ADD_ASSIGN_INSTRUCTOR_URL)
+    public ResponseEntity<Instructor> addAndAssignToInstructor(@RequestBody InstructorDTO instructorDTO,
+                                                               @PathVariable("numCourse") Long numCourse) {
+        Instructor instructor = convertToInstructor(instructorDTO);
+        Instructor addedInstructor = instructorServices.addInstructorAndAssignToCourse(instructor, numCourse);
+        return new ResponseEntity<>(addedInstructor, HttpStatus.OK);
+    }
+
+    @Operation(description = "Retrieve all Instructors")
+    @GetMapping(GET_ALL_INSTRUCTORS_URL)
+    public ResponseEntity<List<Instructor>> getAllInstructors() {
+        List<Instructor> instructors = instructorServices.retrieveAllInstructors();
+        return new ResponseEntity<>(instructors, HttpStatus.OK);
+    }
+
+    @Operation(description = "Update Instructor")
+    @PutMapping(UPDATE_INSTRUCTOR_URL)
+    public ResponseEntity<Instructor> updateInstructor(@RequestBody InstructorDTO instructorDTO) {
+        Instructor instructor = convertToInstructor(instructorDTO);
+        Instructor updatedInstructor = instructorServices.updateInstructor(instructor);
+        return new ResponseEntity<>(updatedInstructor, HttpStatus.OK);
     }
 
     @Operation(description = "Retrieve Instructor by Id")
-    @GetMapping("/get/{id-instructor}")
-    public Instructor getById(@PathVariable("id-instructor") Long numInstructor){
-        return instructorServices.retrieveInstructor(numInstructor);
+    @GetMapping(GET_INSTRUCTOR_BY_ID_URL)
+    public ResponseEntity<Instructor> getById(@PathVariable("id-instructor") Long numInstructor) {
+        Instructor instructor = instructorServices.retrieveInstructor(numInstructor);
+        if (instructor == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(instructor, HttpStatus.OK);
     }
-
 }

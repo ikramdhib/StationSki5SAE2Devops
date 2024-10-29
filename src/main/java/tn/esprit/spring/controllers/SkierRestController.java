@@ -3,6 +3,8 @@ package tn.esprit.spring.controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Skier;
 import tn.esprit.spring.entities.SkierDTO;
@@ -17,66 +19,88 @@ import java.util.List;
 @RequiredArgsConstructor
 public class SkierRestController {
 
+    private static final String ADD_SKIER_URL = "/add";
+    private static final String ADD_ASSIGN_SKIER_TO_COURSE_URL = "/addAndAssign/{numCourse}";
+    private static final String ASSIGN_TO_SUBSCRIPTION_URL = "/assignToSub/{numSkier}/{numSub}";
+    private static final String ASSIGN_TO_PISTE_URL = "/assignToPiste/{numSkier}/{numPiste}";
+    private static final String GET_SKIERS_BY_SUBSCRIPTION_URL = "/getSkiersBySubscription";
+    private static final String GET_SKIER_BY_ID_URL = "/get/{id-skier}";
+    private static final String DELETE_SKIER_URL = "/delete/{id-skier}";
+    private static final String GET_ALL_SKIERS_URL = "/all";
+
     private final ISkierServices skierServices;
 
-    @Operation(description = "Add Skier")
-    @PostMapping("/add")
-    public Skier addSkier(@RequestBody SkierDTO skierDTO){
-        Skier skier = Skier.builder()
+    // Méthode privée pour convertir SkierDTO en Skier
+    private Skier convertToSkier(SkierDTO skierDTO) {
+        return Skier.builder()
                 .firstName(skierDTO.getFirstName())
                 .lastName(skierDTO.getLastName())
                 .dateOfBirth(skierDTO.getDateOfBirth())
                 .city(skierDTO.getCity())
                 .build();
-        return  skierServices.addSkier(skier);
+    }
+
+    @Operation(description = "Add Skier")
+    @PostMapping(ADD_SKIER_URL)
+    public ResponseEntity<Skier> addSkier(@RequestBody SkierDTO skierDTO) {
+        Skier skier = convertToSkier(skierDTO);
+        Skier addedSkier = skierServices.addSkier(skier);
+        return new ResponseEntity<>(addedSkier, HttpStatus.CREATED);
     }
 
     @Operation(description = "Add Skier And Assign To Course")
-    @PostMapping("/addAndAssign/{numCourse}")
-    public Skier addSkierAndAssignToCourse(@RequestBody SkierDTO skierDTO,
-                                           @PathVariable("numCourse") Long numCourse){
-        Skier skier = Skier.builder()
-                .firstName(skierDTO.getFirstName())
-                .lastName(skierDTO.getLastName())
-                .dateOfBirth(skierDTO.getDateOfBirth())
-                .city(skierDTO.getCity())
-                .build();
-        return  skierServices.addSkierAndAssignToCourse(skier,numCourse);
+    @PostMapping(ADD_ASSIGN_SKIER_TO_COURSE_URL)
+    public ResponseEntity<Skier> addSkierAndAssignToCourse(@RequestBody SkierDTO skierDTO,
+                                                           @PathVariable("numCourse") Long numCourse) {
+        Skier skier = convertToSkier(skierDTO);
+        Skier addedSkier = skierServices.addSkierAndAssignToCourse(skier, numCourse);
+        return new ResponseEntity<>(addedSkier, HttpStatus.OK);
     }
+
     @Operation(description = "Assign Skier To Subscription")
-    @PutMapping("/assignToSub/{numSkier}/{numSub}")
-    public Skier assignToSubscription(@PathVariable("numSkier")Long numSkier,
-                               @PathVariable("numSub") Long numSub){
-        return skierServices.assignSkierToSubscription(numSkier, numSub);
+    @PutMapping(ASSIGN_TO_SUBSCRIPTION_URL)
+    public ResponseEntity<Skier> assignToSubscription(@PathVariable("numSkier") Long numSkier,
+                                                      @PathVariable("numSub") Long numSub) {
+        Skier updatedSkier = skierServices.assignSkierToSubscription(numSkier, numSub);
+        return new ResponseEntity<>(updatedSkier, HttpStatus.OK);
     }
 
     @Operation(description = "Assign Skier To Piste")
-    @PutMapping("/assignToPiste/{numSkier}/{numPiste}")
-    public Skier assignToPiste(@PathVariable("numSkier")Long numSkier,
-                               @PathVariable("numPiste") Long numPiste){
-        return skierServices.assignSkierToPiste(numSkier,numPiste);
+    @PutMapping(ASSIGN_TO_PISTE_URL)
+    public ResponseEntity<Skier> assignToPiste(@PathVariable("numSkier") Long numSkier,
+                                               @PathVariable("numPiste") Long numPiste) {
+        Skier updatedSkier = skierServices.assignSkierToPiste(numSkier, numPiste);
+        return new ResponseEntity<>(updatedSkier, HttpStatus.OK);
     }
-    @Operation(description = "retrieve Skiers By Subscription Type")
-    @GetMapping("/getSkiersBySubscription")
-    public List<Skier> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription) {
-        return skierServices.retrieveSkiersBySubscriptionType(typeSubscription);
+
+    @Operation(description = "Retrieve Skiers By Subscription Type")
+    @GetMapping(GET_SKIERS_BY_SUBSCRIPTION_URL)
+    public ResponseEntity<List<Skier>> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription) {
+        List<Skier> skiers = skierServices.retrieveSkiersBySubscriptionType(typeSubscription);
+        return new ResponseEntity<>(skiers, HttpStatus.OK);
     }
+
     @Operation(description = "Retrieve Skier by Id")
-    @GetMapping("/get/{id-skier}")
-    public Skier getById(@PathVariable("id-skier") Long numSkier){
-        return skierServices.retrieveSkier(numSkier);
+    @GetMapping(GET_SKIER_BY_ID_URL)
+    public ResponseEntity<Skier> getById(@PathVariable("id-skier") Long numSkier) {
+        Skier skier = skierServices.retrieveSkier(numSkier);
+        if (skier == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<>(skier, HttpStatus.OK);
     }
 
     @Operation(description = "Delete Skier by Id")
-    @DeleteMapping("/delete/{id-skier}")
-    public void deleteById(@PathVariable("id-skier") Long numSkier){
+    @DeleteMapping(DELETE_SKIER_URL)
+    public ResponseEntity<Void> deleteById(@PathVariable("id-skier") Long numSkier) {
         skierServices.removeSkier(numSkier);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @Operation(description = "Retrieve all Skiers")
-    @GetMapping("/all")
-    public List<Skier> getAllSkiers(){
-        return skierServices.retrieveAllSkiers();
+    @GetMapping(GET_ALL_SKIERS_URL)
+    public ResponseEntity<List<Skier>> getAllSkiers() {
+        List<Skier> skiers = skierServices.retrieveAllSkiers();
+        return new ResponseEntity<>(skiers, HttpStatus.OK);
     }
-
 }
