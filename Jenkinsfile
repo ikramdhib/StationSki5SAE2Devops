@@ -65,32 +65,5 @@ pipeline {
                }
            }
        }
-        stage('Setup Grafana') {
-                   steps {
-                       withCredentials([usernamePassword(credentialsId: 'grafana-credentials', usernameVariable: 'GRAFANA_USER', passwordVariable: 'GRAFANA_PASS')]) {
-                           script {
-                               // Wait for Grafana to start
-                               sleep 30 // Adjust as needed
-
-                               // Add Prometheus data source to Grafana
-                               def prometheusUrl = 'http://prometheus:9090' // Adjust if necessary
-
-                               sh """
-                               curl -X POST -H "Authorization: Basic \$(echo -n \$GRAFANA_USER:\$GRAFANA_PASS | base64)" \
-                               -H "Content-Type: application/json" \
-                               -d '{
-                                   "name": "Prometheus",
-                                   "type": "prometheus",
-                                   "url": "${prometheusUrl}",
-                                   "access": "proxy",
-                                   "basicAuth": false
-                               }' \
-                               http://localhost:3000/api/datasources
-                               """
-                           }
-                       }
-                   }
-               }
-
     }
 }
