@@ -6,7 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import tn.esprit.spring.TDO.CourseDTO;
+import tn.esprit.spring.tdo.CourseDTO;
 import tn.esprit.spring.entities.Course;
 import tn.esprit.spring.entities.TypeCourse;
 import tn.esprit.spring.services.ICourseServices;

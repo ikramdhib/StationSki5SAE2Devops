@@ -7,9 +7,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
-import tn.esprit.spring.TDO.CourseDTO;
 import tn.esprit.spring.entities.Course;
 
+import tn.esprit.spring.entities.Support;
 import tn.esprit.spring.entities.TypeCourse;
 import tn.esprit.spring.repositories.ICourseRepository;
 
@@ -50,7 +50,13 @@ class CourseServicesImplMockTest {
     @Test
     void addCourseTest() {
         // Arrange
-        Course course = Course.builder().title("Java Basics").level(1).build();
+        Course course = Course.builder().title("Java Basics")
+                .description("test1")
+                .typeCourse(TypeCourse.INDIVIDUAL)
+                .support(Support.SKI)
+                .price(10.0f)
+                .timeSlot(1)
+                .level(1).build();
 
         // Simulez le comportement du repository
         when(courseRepository.save(any(Course.class))).thenReturn(course);

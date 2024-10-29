@@ -1,4 +1,4 @@
-package tn.esprit.spring.TDO;
+package tn.esprit.spring.tdo;
 
 import lombok.AccessLevel;
 import lombok.Getter;
