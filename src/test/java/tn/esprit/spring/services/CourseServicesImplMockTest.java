@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tn.esprit.spring.controllers.CourseRestController;
 import tn.esprit.spring.entities.Course;
 import tn.esprit.spring.entities.TypeCourse;
 import tn.esprit.spring.repositories.ICourseRepository;
@@ -24,6 +25,8 @@ import static org.mockito.Mockito.times;
 class CourseServicesImplMockTest {
     @InjectMocks
     private CourseServicesImpl courseServices;
+    @InjectMocks
+    private CourseRestController courseRestController;
     @Mock
     private ICourseRepository courseRepository;
 
@@ -46,12 +49,20 @@ class CourseServicesImplMockTest {
     }
 
     @Test
-    void addCourse() {
-        Course course = new Course();
-        when(courseRepository.save(course)).thenReturn(course);
+    void addCourseTest() {
+        // Arrange
+        Course course = Course.builder().title("Java Basics").level(1).build();
+
+        // Simulez le comportement du repository
+        when(courseRepository.save(any(Course.class))).thenReturn(course);
+
+        // Act
         Course savedCourse = courseServices.addCourse(course);
+
+        // Assert
         assertNotNull(savedCourse);
-        verify(courseRepository, times(1)).save(course);
+        assertEquals("Java Basics", savedCourse.getTitle());
+        verify(courseRepository, times(1)).save(any(Course.class));
     }
 
     @Test
