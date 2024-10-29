@@ -2,7 +2,6 @@ package tn.esprit.spring.entities;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
@@ -36,10 +35,6 @@ public class Skier implements Serializable {
 
 	@JsonIgnore
 	@ManyToMany
-	@JoinTable(
-			name = "excursion",
-			joinColumns = @JoinColumn(name = "numSkier"),
-			inverseJoinColumns = @JoinColumn(name = "numPiste"))
 	private Set<Piste> pistes;
 
 

@@ -18,7 +18,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.hamcrest.Matchers.any;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -42,19 +41,19 @@ Piste pisteA = Piste.builder().namePiste("Green Valley").color(Color.RED).length
 
     @Test
     void retrieveAllPistes() {
-        // Prepare mock data
+
         List<Piste> pistes = new ArrayList<>();
         pistes.add(pisteA);
         pistes.add(pisteT);
         pistes.add(pisteB);
 
-        // Mock the repository behavior
+
         Mockito.when(pisteRepository.findAll()).thenReturn(pistes);
 
-        // Call the service method
+
         List<Piste> retrievedPistes = pisteServices.retrieveAllPistes();
 
-        // Assertions to verify the behavior
+
         assertNotNull(retrievedPistes);
         assertEquals(3, retrievedPistes.size());
         assertTrue(retrievedPistes.contains(pisteA));
@@ -64,13 +63,13 @@ Piste pisteA = Piste.builder().namePiste("Green Valley").color(Color.RED).length
 
     @Test
     void addPiste() {
-        // Mock the behavior of save method
+
         Mockito.when(pisteRepository.save(Mockito.any(Piste.class))).thenReturn(pisteA);
 
-        // Call the service method
+
         Piste savedPiste = pisteServices.addPiste(pisteA);
 
-        // Assertions to verify the behavior
+
         assertNotNull(savedPiste);
         assertEquals("Green Valley", savedPiste.getNamePiste());
         assertEquals(Color.RED, savedPiste.getColor());
