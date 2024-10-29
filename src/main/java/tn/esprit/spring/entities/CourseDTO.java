@@ -1,9 +1,11 @@
 package tn.esprit.spring.entities;
+import lombok.Builder;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 @Data
+@Builder
 public class CourseDTO {
     @NotNull(message = "Title cannot be null")
     private String title;
