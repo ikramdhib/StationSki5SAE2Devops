@@ -9,8 +9,6 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tn.esprit.spring.controllers.CourseRestController;
 import tn.esprit.spring.entities.Course;
-import tn.esprit.spring.entities.CourseDTO;
-import tn.esprit.spring.entities.Support;
 import tn.esprit.spring.entities.TypeCourse;
 import tn.esprit.spring.repositories.ICourseRepository;
 
@@ -27,8 +25,6 @@ import static org.mockito.Mockito.times;
 class CourseServicesImplMockTest {
     @InjectMocks
     private CourseServicesImpl courseServices;
-    @InjectMocks
-    private CourseRestController courseRestController;
     @Mock
     private ICourseRepository courseRepository;
 
