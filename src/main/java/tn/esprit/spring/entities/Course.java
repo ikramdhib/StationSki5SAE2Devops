@@ -2,11 +2,9 @@ package tn.esprit.spring.entities;
 
 import java.io.Serializable;
 import java.util.Set;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -23,6 +21,7 @@ public class Course implements Serializable {
 	Long numCourse;
 	@NotNull(message = "Title cannot be null")
 	private String title;
+	@NotNull(message = "Level cannot be null")
 	@Positive(message = "Level must be a positive integer")
 	private int level;
 	@NotNull(message = "Type of course cannot be null")

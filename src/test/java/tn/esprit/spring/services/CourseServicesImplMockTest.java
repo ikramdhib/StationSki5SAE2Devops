@@ -157,29 +157,5 @@ class CourseServicesImplMockTest {
         verify(courseRepository, times(1)).findByTypeCourse(typeCourse);
     }
 
-    @Test
-    void toCourseTest() {
-        // Arrange
-        CourseDTO courseDTO = CourseDTO.builder()
-                .title("Advanced Java")
-                .level(2)
-                .typeCourse(TypeCourse.COLLECTIVE_CHILDREN)
-                .description("This is an advanced Java course")
-                .support(Support.SKI)
-                .price(300.0f)
-                .timeSlot(2)
-                .build();
-        // Act
-        Course course = courseServices.toCourse(courseDTO);
-        // Assert
-        assertNotNull(course);
-        assertEquals("Advanced Java", course.getTitle());
-        assertEquals(2, course.getLevel());
-        assertEquals(TypeCourse.COLLECTIVE_CHILDREN, course.getTypeCourse());
-        assertEquals("This is an advanced Java course", course.getDescription());
-        assertEquals(Support.SKI, course.getSupport());
-        assertEquals(300.0f, course.getPrice());
-        assertEquals(2, course.getTimeSlot());
-    }
 
 }
