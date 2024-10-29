@@ -50,8 +50,8 @@ class CourseServicesImplMockTest {
     @Test
     void addCourseTest() {
         // Arrange
-        Course course = Course.builder().title("Java Basics")
-                .description("test1")
+        Course course = Course.builder().description("Java Basics")
+
                 .typeCourse(TypeCourse.INDIVIDUAL)
                 .support(Support.SKI)
                 .price(10.0f)
@@ -66,7 +66,7 @@ class CourseServicesImplMockTest {
 
         // Assert
         assertNotNull(savedCourse);
-        assertEquals("Java Basics", savedCourse.getTitle());
+        assertEquals("Java Basics", savedCourse.getDescription());
         verify(courseRepository, times(1)).save(any(Course.class));
     }
 
@@ -149,21 +149,19 @@ class CourseServicesImplMockTest {
         TypeCourse typeCourse = TypeCourse.COLLECTIVE_CHILDREN;
 
         Course course1 = Course.builder()
-                .title("Cours A")
                 .level(2)
                 .support(Support.SKI)
                 .typeCourse(typeCourse)
-                .description("test")
+                .description("Cours A")
                 .price(10.0f)
                 .timeSlot(2)
                 .build();
 
         Course course2 = Course.builder()
-                .title("Cours B")
                 .level(3)
                 .support(Support.SKI)
                 .typeCourse(typeCourse)
-                .description("test")
+                .description("Cours B")
                 .price(10.0f)
                 .timeSlot(2)
                 .build();
@@ -174,8 +172,8 @@ class CourseServicesImplMockTest {
 
         // Assert
         assertEquals(2, recommendedCourses.size(), "Il devrait y avoir 2 cours recommandés");
-        assertEquals("Cours A", recommendedCourses.get(0).getTitle());
-        assertEquals("Cours B", recommendedCourses.get(1).getTitle());
+        assertEquals("Cours A", recommendedCourses.get(0).getDescription());
+        assertEquals("Cours B", recommendedCourses.get(1).getDescription());
         verify(courseRepository, times(1)).findByTypeCourse(typeCourse);
     }
 
