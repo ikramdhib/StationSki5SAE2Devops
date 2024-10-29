@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Registration;
+import tn.esprit.spring.entities.RegistrationDTO;
 import tn.esprit.spring.entities.Support;
 import tn.esprit.spring.services.IRegistrationServices;
 
@@ -19,9 +20,12 @@ public class RegistrationRestController {
 
     @Operation(description = "Add Registration and Assign to Skier")
     @PutMapping("/addAndAssignToSkier/{numSkieur}")
-    public Registration addAndAssignToSkier(@RequestBody Registration registration,
+    public Registration addAndAssignToSkier(@RequestBody RegistrationDTO registrationDTO,
                                                      @PathVariable("numSkieur") Long numSkieur)
     {
+        Registration registration = Registration.builder()
+                .numWeek(registrationDTO.getNumWeek())
+                .build();
         return  registrationServices.addRegistrationAndAssignToSkier(registration,numSkieur);
     }
     @Operation(description = "Assign Registration to Course")
@@ -34,10 +38,14 @@ public class RegistrationRestController {
 
     @Operation(description = "Add Registration and Assign to Skier and Course")
     @PutMapping("/addAndAssignToSkierAndCourse/{numSkieur}/{numCourse}")
-    public Registration addAndAssignToSkierAndCourse(@RequestBody Registration registration,
+    public Registration addAndAssignToSkierAndCourse(@RequestBody RegistrationDTO registrationDTO,
                                                      @PathVariable("numSkieur") Long numSkieur,
                                                      @PathVariable("numCourse") Long numCourse)
+
     {
+        Registration registration = Registration.builder()
+                .numWeek(registrationDTO.getNumWeek())
+                .build();
         return  registrationServices.addRegistrationAndAssignToSkierAndCourse(registration,numSkieur,numCourse);
     }
 

@@ -1,6 +1,7 @@
 package tn.esprit.spring.services;
 
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import tn.esprit.spring.entities.*;
 import tn.esprit.spring.repositories.*;
@@ -11,6 +12,7 @@ import java.util.Set;
 
 @AllArgsConstructor
 @Service
+@Slf4j
 public class SkierServicesImpl implements ISkierServices {
 
     private ISkierRepository skierRepository;
@@ -49,9 +51,16 @@ public class SkierServicesImpl implements ISkierServices {
     public Skier assignSkierToSubscription(Long numSkier, Long numSubscription) {
         Skier skier = skierRepository.findById(numSkier).orElse(null);
         Subscription subscription = subscriptionRepository.findById(numSubscription).orElse(null);
+
+        if (skier == null || subscription == null) {
+            log.error("Skier or Subscription not found.");
+            return null;
+        }
+
         skier.setSubscription(subscription);
         return skierRepository.save(skier);
     }
+
 
     @Override
     public Skier addSkierAndAssignToCourse(Skier skier, Long numCourse) {
@@ -80,16 +89,20 @@ public class SkierServicesImpl implements ISkierServices {
     public Skier assignSkierToPiste(Long numSkieur, Long numPiste) {
         Skier skier = skierRepository.findById(numSkieur).orElse(null);
         Piste piste = pisteRepository.findById(numPiste).orElse(null);
-        try {
-            skier.getPistes().add(piste);
-        } catch (NullPointerException exception) {
-            Set<Piste> pisteList = new HashSet<>();
-            pisteList.add(piste);
-            skier.setPistes(pisteList);
+        if (skier == null || piste == null) {
+            log.error("Skier or Piste not found.");
+            return null;
         }
+
+        if (skier.getPistes() == null) {
+            skier.setPistes(new HashSet<>());
+        }
+
+        skier.getPistes().add(piste);
 
         return skierRepository.save(skier);
     }
+
 
     @Override
     public List<Skier> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription) {

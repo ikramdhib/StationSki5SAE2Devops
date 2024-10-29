@@ -5,6 +5,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Subscription;
+import tn.esprit.spring.entities.SubscriptionDTO;
 import tn.esprit.spring.entities.TypeSubscription;
 import tn.esprit.spring.services.ISubscriptionServices;
 
@@ -22,7 +23,12 @@ public class SubscriptionRestController {
 
     @Operation(description = "Add Subscription ")
     @PostMapping("/add")
-    public Subscription addSubscription(@RequestBody Subscription subscription){
+    public Subscription addSubscription(@RequestBody SubscriptionDTO subscriptionDTO){
+        Subscription subscription= Subscription.builder()
+                .startDate(subscriptionDTO.getStartDate())
+                .endDate(subscriptionDTO.getEndDate())
+                .price(subscriptionDTO.getPrice())
+                .build();
         return  subscriptionServices.addSubscription(subscription);
     }
     @Operation(description = "Retrieve Subscription by Id")
@@ -38,7 +44,12 @@ public class SubscriptionRestController {
     }
     @Operation(description = "Update Subscription ")
     @PutMapping("/update")
-    public Subscription updateSubscription(@RequestBody Subscription subscription){
+    public Subscription updateSubscription(@RequestBody SubscriptionDTO subscriptionDTO){
+        Subscription subscription= Subscription.builder()
+                .startDate(subscriptionDTO.getStartDate())
+                .endDate(subscriptionDTO.getEndDate())
+                .price(subscriptionDTO.getPrice())
+                .build();
         return  subscriptionServices.updateSubscription(subscription);
     }
     @Operation(description = "Retrieve Subscriptions created between two dates")
