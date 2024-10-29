@@ -93,24 +93,21 @@ class CourseServicesImplMockTest {
         verify(courseRepository, times(1)).findAll();
     }
 
+
     @Test
     void addCourseTest() {
         // Arrange
         Course course = Course.builder().description("Java Basics")
-
                 .typeCourse(TypeCourse.INDIVIDUAL)
                 .support(Support.SKI)
                 .price(10.0f)
                 .timeSlot(1)
                 .level(1).build();
 
-        // Simulez le comportement du repository
         when(courseRepository.save(any(Course.class))).thenReturn(course);
 
-        // Act
         Course savedCourse = courseServices.addCourse(course);
 
-        // Assert
         assertNotNull(savedCourse);
         assertEquals("Java Basics", savedCourse.getDescription());
         verify(courseRepository, times(1)).save(any(Course.class));
