@@ -7,8 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tn.esprit.spring.dto.CourseDTO;
 import tn.esprit.spring.entities.Course;
 
+import tn.esprit.spring.entities.CourseMapper;
 import tn.esprit.spring.entities.Support;
 import tn.esprit.spring.entities.TypeCourse;
 import tn.esprit.spring.repositories.ICourseRepository;
@@ -28,6 +30,50 @@ class CourseServicesImplMockTest {
     private CourseServicesImpl courseServices;
     @Mock
     private ICourseRepository courseRepository;
+    @InjectMocks
+    private final CourseMapper courseMapper = new CourseMapper();
+
+    @Test
+    void testToEntity() {
+        CourseDTO courseDTO = new CourseDTO(1L, 1, TypeCourse.COLLECTIVE_CHILDREN, Support.SKI, 100.0F, 2, "Sample Course", "Paris");
+
+        Course course = courseMapper.toEntity(courseDTO);
+
+        assertEquals(1L, course.getNumCourse());
+        assertEquals(1, course.getLevel());
+        assertEquals(TypeCourse.COLLECTIVE_CHILDREN, course.getTypeCourse());
+        assertEquals(Support.SKI, course.getSupport());
+        assertEquals(100.0F, course.getPrice());
+        assertEquals(2, course.getTimeSlot());
+        assertEquals("Sample Course", course.getDescription());
+        assertEquals("Paris", course.getLocation());
+    }
+    @Test
+    void testToDTO() {
+        Course course = Course.builder()
+                .numCourse(1L)
+                .level(1)
+                .typeCourse(TypeCourse.COLLECTIVE_CHILDREN)
+                .support(Support.SKI)
+                .price(100.0F)
+                .timeSlot(2)
+                .description("Sample Course")
+                .location("Paris")
+                .build();
+
+        CourseDTO courseDTO = courseMapper.toDTO(course);
+
+        assertEquals(1L, courseDTO.getNumCourse());
+        assertEquals(1, courseDTO.getLevel());
+        assertEquals(TypeCourse.COLLECTIVE_CHILDREN, courseDTO.getTypeCourse());
+        assertEquals(Support.SKI, courseDTO.getSupport());
+        assertEquals(100.0F, courseDTO.getPrice());
+        assertEquals(2, courseDTO.getTimeSlot());
+        assertEquals("Sample Course", courseDTO.getDescription());
+        assertEquals("Paris", courseDTO.getLocation());
+    }
+
+
 
     @BeforeEach
     void setUp(){
