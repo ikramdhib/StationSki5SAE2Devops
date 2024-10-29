@@ -31,8 +31,8 @@ public class CourseRestController {
 
     @Operation(description = "Add Course")
     @PostMapping(ADD_COURSE_URL)
-    public Course addCourse(@RequestBody CourseDTO courseDTO) {
-        return courseServices.addCourse(courseDTO);
+    public Course addCourse(@RequestBody CourseDTO course) {
+        return courseServices.addCourse(course);
     }
     @Operation(description = "Retrieve all Courses")
     @GetMapping(GET_ALL_COURSES_URL)
@@ -42,8 +42,8 @@ public class CourseRestController {
 
     @Operation(description = "Update Course")
     @PutMapping(UPDATE_COURSE_URL)
-    public Course updateCourse(@RequestBody CourseDTO courseDTO) {
-        return courseServices.updateCourse(courseDTO);
+    public Course updateCourse(@RequestBody CourseDTO course) {
+        return courseServices.updateCourse(course);
     }
 
     @Operation(description = "Retrieve Course by Id")
