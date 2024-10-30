@@ -37,5 +37,22 @@ pipeline {
                }
             }
         }
+        stage('Docker Build') {
+               steps {
+                  script {
+                      sh 'docker build -t stationski:1.0 .'
+                      }
+               }
+        }
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker_credit', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                    sh 'docker push stationski:1.0'
+                }
+            }
+        }
+
+
     }
 }
