@@ -19,29 +19,29 @@ public class InstructorRestController {
     private final IInstructorServices instructorServices;
 
     @Operation(description = "Add Instructor")
-    @PostMapping("/add")
+    @PostMapping(value = "/add",produces = "text/plain")
     public Instructor addInstructor(@RequestBody InstructorDTO instructorDTO){
         return  instructorServices.addInstructor(instructorDTO);
     }
     @Operation(description = "Add Instructor and Assign To Course")
-    @PutMapping("/addAndAssignToCourse/{numCourse}")
+    @PutMapping(value = "/addAndAssignToCourse/{numCourse}",produces = "text/plain")
     public Instructor addAndAssignToInstructor(@RequestBody InstructorDTO instructor, @PathVariable("numCourse")Long numCourse){
         return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);
     }
     @Operation(description = "Retrieve all Instructors")
-    @GetMapping("/all")
+    @GetMapping(value = "/all",produces = "text/plain")
     public List<Instructor> getAllInstructors(){
         return instructorServices.retrieveAllInstructors();
     }
 
     @Operation(description = "Update Instructor ")
-    @PutMapping("/update")
+    @PutMapping(value = "/update",produces = "text/plain")
     public Instructor updateInstructor(@RequestBody InstructorDTO instructorTDO){
         return  instructorServices.updateInstructor(instructorTDO);
     }
 
     @Operation(description = "Retrieve Instructor by Id")
-    @GetMapping("/get/{id-instructor}")
+    @GetMapping(value = "/get/{id-instructor}",produces = "text/plain")
     public Instructor getById(@PathVariable("id-instructor") Long numInstructor){
         return instructorServices.retrieveInstructor(numInstructor);
     }

@@ -22,28 +22,28 @@ public class SubscriptionRestController {
     private final ISubscriptionServices subscriptionServices;
 
     @Operation(description = "Add Subscription ")
-    @PostMapping("/add")
+    @PostMapping(value = "/add",produces = "text/plain")
     public Subscription addSubscription(@RequestBody SubscriptionDTO subscriptionTDO){
         return  subscriptionServices.addSubscription(subscriptionTDO);
     }
     @Operation(description = "Retrieve Subscription by Id")
-    @GetMapping("/get/{id-subscription}")
+    @GetMapping(value = "/get/{id-subscription}",produces = "text/plain")
     public Subscription getById(@PathVariable("id-subscription") Long numSubscription){
         return subscriptionServices.retrieveSubscriptionById(numSubscription);
     }
     
     @Operation(description = "Retrieve Subscriptions by Type")
-    @GetMapping("/all/{typeSub}")
+    @GetMapping(value = "/all/{typeSub}",produces = "text/plain")
     public Set<Subscription> getSubscriptionsByType(@PathVariable("typeSub") TypeSubscription typeSubscription){
         return subscriptionServices.getSubscriptionByType(typeSubscription);
     }
     @Operation(description = "Update Subscription ")
-    @PutMapping("/update")
+    @PutMapping(value = "/update",produces = "text/plain")
     public Subscription updateSubscription(@RequestBody SubscriptionDTO subscriptionTDO){
         return  subscriptionServices.updateSubscription(subscriptionTDO);
     }
     @Operation(description = "Retrieve Subscriptions created between two dates")
-    @GetMapping("/all/{date1}/{date2}")
+    @GetMapping(value = "/all/{date1}/{date2}",produces = "text/plain")
     public List<Subscription> getSubscriptionsByDates(@PathVariable("date1") LocalDate startDate,
                                                       @PathVariable("date2") LocalDate endDate){
         return subscriptionServices.retrieveSubscriptionsByDates(startDate, endDate);

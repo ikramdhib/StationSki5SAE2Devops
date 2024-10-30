@@ -20,49 +20,49 @@ public class SkierRestController {
     private final ISkierServices skierServices;
 
     @Operation(description = "Add Skier")
-    @PostMapping("/add")
+    @PostMapping(value = "/add",produces = "text/plain")
     public Skier addSkier(@RequestBody SkierDTO skier){
         return  skierServices.addSkier(skier);
     }
 
     @Operation(description = "Add Skier And Assign To Course")
-    @PostMapping("/addAndAssign/{numCourse}")
+    @PostMapping(value = "/addAndAssign/{numCourse}",produces = "text/plain")
     public Skier addSkierAndAssignToCourse(@RequestBody SkierDTO skier,
                                            @PathVariable("numCourse") Long numCourse){
         return  skierServices.addSkierAndAssignToCourse(skier,numCourse);
     }
     @Operation(description = "Assign Skier To Subscription")
-    @PutMapping("/assignToSub/{numSkier}/{numSub}")
+    @PutMapping(value = "/assignToSub/{numSkier}/{numSub}",produces = "text/plain")
     public Skier assignToSubscription(@PathVariable("numSkier")Long numSkier,
                                @PathVariable("numSub") Long numSub){
         return skierServices.assignSkierToSubscription(numSkier, numSub);
     }
 
     @Operation(description = "Assign Skier To Piste")
-    @PutMapping("/assignToPiste/{numSkier}/{numPiste}")
+    @PutMapping(value = "/assignToPiste/{numSkier}/{numPiste}",produces = "text/plain")
     public Skier assignToPiste(@PathVariable("numSkier")Long numSkier,
                                @PathVariable("numPiste") Long numPiste){
         return skierServices.assignSkierToPiste(numSkier,numPiste);
     }
     @Operation(description = "retrieve Skiers By Subscription Type")
-    @GetMapping("/getSkiersBySubscription")
+    @GetMapping(value = "/getSkiersBySubscription",produces = "text/plain")
     public List<Skier> retrieveSkiersBySubscriptionType(TypeSubscription typeSubscription) {
         return skierServices.retrieveSkiersBySubscriptionType(typeSubscription);
     }
     @Operation(description = "Retrieve Skier by Id")
-    @GetMapping("/get/{id-skier}")
+    @GetMapping(value = "/get/{id-skier}",produces = "text/plain")
     public Skier getById(@PathVariable("id-skier") Long numSkier){
         return skierServices.retrieveSkier(numSkier);
     }
 
     @Operation(description = "Delete Skier by Id")
-    @DeleteMapping("/delete/{id-skier}")
+    @DeleteMapping(value = "/delete/{id-skier}",produces = "text/plain")
     public void deleteById(@PathVariable("id-skier") Long numSkier){
         skierServices.removeSkier(numSkier);
     }
 
     @Operation(description = "Retrieve all Skiers")
-    @GetMapping("/all")
+    @GetMapping(value = "/all",produces = "text/plain")
     public List<Skier> getAllSkiers(){
         return skierServices.retrieveAllSkiers();
     }

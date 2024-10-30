@@ -14,30 +14,32 @@ import java.util.List;
 @RestController
 @RequestMapping("/course")
 @RequiredArgsConstructor
+
 public class CourseRestController {
     
     private final ICourseServices courseServices;
 
     @Operation(description = "Add Course")
-    @PostMapping("/add")
+    @PostMapping(value = "/add",produces = "text/plain")
+
     public Course addCourse(@RequestBody CourseDTO course){
         return  courseServices.addCourse(course);
     }
 
     @Operation(description = "Retrieve all Courses")
-    @GetMapping("/all")
+    @GetMapping(value = "/all",produces = "text/plain")
     public List<Course> getAllCourses(){
         return courseServices.retrieveAllCourses();
     }
 
     @Operation(description = "Update Course ")
-    @PutMapping("/update")
+    @PutMapping(value = "/update",produces = "text/plain")
     public Course updateCourse(@RequestBody CourseDTO courseDTO){
         return  courseServices.updateCourse(courseDTO);
     }
 
     @Operation(description = "Retrieve Course by Id")
-    @GetMapping("/get/{id-course}")
+    @GetMapping(value = "/get/{id-course}",produces = "text/plain")
     public Course getById(@PathVariable("id-course") Long numCourse){
         return courseServices.retrieveCourse(numCourse);
     }
