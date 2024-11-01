@@ -26,10 +26,24 @@ pipeline {
                 sh "mvn compile"
             }
         }
+        stage('Maven Test with Coverage') {
+    steps {
+        sh 'mvn test'
+    }
+}
+
         stage('SonarQube Analysis') {
             steps {
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                     sh 'mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN'
+                }
+            }
+        }
+        stage('Maven Deploy to Nexus') {
+            steps {
+                echo 'Deploying to Nexus...'
+                withCredentials([usernamePassword(credentialsId: 'nexus-credentials', usernameVariable: 'NEXUS_USER', passwordVariable: 'NEXUS_PASS')]) {
+                    sh 'mvn deploy -DskipTests -DaltDeploymentRepository=deploymentRepo::default::http://localhost:8081/repository/maven-releases/ -Dusername=$NEXUS_USER -Dpassword=$NEXUS_PASS'
                 }
             }
         }
