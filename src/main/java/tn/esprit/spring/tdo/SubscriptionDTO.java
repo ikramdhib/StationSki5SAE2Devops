@@ -2,10 +2,7 @@ package tn.esprit.spring.tdo;
 
 
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 import tn.esprit.spring.entities.Subscription;
 
