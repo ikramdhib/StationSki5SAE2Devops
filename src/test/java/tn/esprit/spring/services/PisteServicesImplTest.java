@@ -81,10 +81,8 @@ class PisteServicesImplTest {
 
         Long pisteId = 1L;
 
-        // Call the service method
         pisteServices.removePiste(pisteId);
 
-        // Verify that the deleteById method was called with the correct parameter
         verify(pisteRepository, times(1)).deleteById(pisteId);
     }
 
@@ -92,13 +90,10 @@ class PisteServicesImplTest {
     void retrievePiste() {
         Long pisteId = 1L;
 
-        // Mock the behavior of findById method
         Mockito.when(pisteRepository.findById(pisteId)).thenReturn(Optional.of(pisteA));
 
-        // Call the service method
         Piste retrievedPiste = pisteServices.retrievePiste(pisteId);
 
-        // Assertions to verify the behavior
         assertNotNull(retrievedPiste);
         assertEquals("Green Valley", retrievedPiste.getNamePiste());
         assertEquals(Color.RED, retrievedPiste.getColor());

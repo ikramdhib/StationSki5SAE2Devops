@@ -39,7 +39,6 @@ class RegistrationServicesImplTest {
 
     @Test
     void testAddRegistrationAndAssignToSkier() {
-        // Créer un skieur avec des valeurs valides pour tous les champs
         Skier skier = new Skier(1L, "John", "Doe", LocalDate.of(2000, 1, 1), "CityName", null, null, null);
         Registration registration = new Registration();
         registration.setNumWeek(5);
@@ -83,40 +82,31 @@ class RegistrationServicesImplTest {
         when(registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(5, 1L, 1L)).thenReturn(1L);
 
         Registration result = registrationService.addRegistrationAndAssignToSkierAndCourse(registration, 1L, 1L);
-        assertNull(result); // Devrait renvoyer null car le skieur est déjà inscrit
+        assertNull(result);
     }
 
     @Test
     void testAddRegistrationAndAssignToSkierAndCourse_AgeRestriction() {
-        // Initialisation de l'objet Skier avec un âge de 14 ans
         Skier skier = new Skier(1L, "John", "Doe", LocalDate.of(2010, 1, 1), "CityName", null, null, null);
 
-        // Initialisation de l'objet Course avec le type de cours pour les enfants
         Course course = new Course();
         course.setTypeCourse(TypeCourse.COLLECTIVE_CHILDREN);
 
-        // Création de l'objet Registration avec les valeurs appropriées
         Registration registration = new Registration();
         registration.setNumWeek(5);
 
-        // Configuration des mocks pour retourner des valeurs valides et non nulles
-        when(skierRepository.findById(1L)).thenReturn(Optional.of(skier)); // Le skieur est trouvé
-        when(courseRepository.findById(1L)).thenReturn(Optional.of(course)); // Le cours est trouvé
-        when(registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(5, 1L, 1L)).thenReturn(0L); // Pas encore inscrit
-        when(registrationRepository.countByCourseAndNumWeek(course, 5)).thenReturn(5L); // 5 inscriptions pour la semaine
+        when(skierRepository.findById(1L)).thenReturn(Optional.of(skier));
+        when(courseRepository.findById(1L)).thenReturn(Optional.of(course));
+        when(registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(5, 1L, 1L)).thenReturn(0L);
+        when(registrationRepository.countByCourseAndNumWeek(course, 5)).thenReturn(5L);
 
-        // Mock pour enregistrer l'inscription et retourner un objet non nul
         when(registrationRepository.save(any(Registration.class))).thenReturn(registration);
 
-        // Appel de la méthode de service
         Registration result = registrationService.addRegistrationAndAssignToSkierAndCourse(registration, 1L, 1L);
 
-        // Assertions pour vérifier le résultat
-        assertNotNull(result, "L'inscription ne doit pas être nulle"); // Vérifie que l'inscription n'est pas null
-        assertEquals(skier, result.getSkier()); // Vérifie que le skieur est bien assigné
-        assertEquals(course, result.getCourse()); // Vérifie que le cours est bien assigné
-
-        // Vérifie que l'inscription a été sauvegardée une fois
+        assertNotNull(result, "L'inscription ne doit pas être nulle");
+        assertEquals(skier, result.getSkier());
+        assertEquals(course, result.getCourse());
         verify(registrationRepository, times(1)).save(registration);
     }
 
@@ -128,7 +118,6 @@ class RegistrationServicesImplTest {
 
         List<Integer> result = registrationService.numWeeksCourseOfInstructorBySupport(1L, Support.SKI);
 
-        // Utiliser assertIterableEquals pour comparer les listes
         assertIterableEquals(expectedWeeks, result);
     }
 }
