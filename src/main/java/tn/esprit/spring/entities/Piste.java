@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;

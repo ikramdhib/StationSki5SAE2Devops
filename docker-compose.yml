@@ -13,7 +13,7 @@ services:
       - db:/var/lib/mysql
 
   stationski:
-    image: stationski:1.0
+    image:  emna050/stationski:1.0
     depends_on:
       - mysqldb
     restart: on-failure
