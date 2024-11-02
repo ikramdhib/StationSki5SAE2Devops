@@ -43,7 +43,7 @@ pipeline {
                       sh 'docker build -t emna050/stationski:1.0 .'
                       }
                }
-
+        }
         stage('Push Docker Image') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker_credit', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
