@@ -131,7 +131,8 @@ class SubscriptionServicesImplTest {
         // Now call the method that adds subscription
         subscriptionServices.addSubscription(subscription); // This will set endDate properly
 
-        List<Subscription> mockSubscriptions = List.of(subscription);
+        List<Subscription> mockSubscriptions = new ArrayList<>();
+        mockSubscriptions.add(subscription);
         when(subscriptionRepository.findDistinctOrderByEndDateAsc()).thenReturn(mockSubscriptions);
         when(skierRepository.findBySubscription(subscription)).thenReturn(new Skier("John", "Doe"));
 
