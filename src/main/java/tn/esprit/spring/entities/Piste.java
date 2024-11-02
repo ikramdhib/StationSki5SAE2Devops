@@ -4,11 +4,8 @@ import java.io.Serializable;
 import java.util.Set;
 
 import javax.persistence.*;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+
+import lombok.*;
 import lombok.experimental.FieldDefaults;
 
 @Getter
@@ -17,6 +14,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
 @Entity
+@Builder
 public class Piste implements Serializable {
 
 	@Id
