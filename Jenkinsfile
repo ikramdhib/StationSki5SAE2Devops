@@ -41,19 +41,21 @@ pipeline {
                }
 
 
-   stage('Package') {
+  stage('Docker Build') {
             steps {
-                echo 'Packaging with Maven...'
-                sh 'mvn package -DskipTests'
+                script {
+                    sh 'docker build -t ikramdhibikram/stationski:1.0 .'
+                }
             }
         }
+
 
                 stage('Docker Build') {
                            steps {
                                echo 'Building Docker image...'
                                script {
-                                   // Build the Docker image using the Dockerfile in the repository
-                                   def image = docker.build("managerstation:v1.0", ".")
+
+                                  sh 'docker build -t maryemsebei/managerstationski:1.0 .'
 
                                }
                            }
