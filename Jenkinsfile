@@ -54,18 +54,24 @@ pipeline {
                                script {
                                    // Build the Docker image using the Dockerfile in the repository
                                    def image = docker.build("managerstation:v1.0", ".")
+
                                }
                            }
                        }
 
-                  stage('Run Docker Container') {
-                        steps {
-                            echo 'Running Docker container...'
-                            script {
-                                docker.image("managerstation:v1.0").run("-d -p 8089:8089")
+                 stage('Run Docker Container') {
+                            steps {
+                                echo 'Running Docker container...'
+                                script {
+                                    // Stop and remove any existing container
+                                    sh 'docker stop managerstation || true'
+                                    sh 'docker rm managerstation || true'
+
+                                    // Run the new container
+                                    docker.image("managerstation:v1.0").run("-d --name managerstation -p 8089:8089")
+                                }
                             }
                         }
-                    }
 
     }
 
