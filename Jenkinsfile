@@ -52,20 +52,6 @@ pipeline {
                            }
                        }
 
-                 stage('Run Docker Container') {
-                            steps {
-                                echo 'Running Docker container...'
-                                script {
-                                    // Stop and remove any existing container
-                                    sh 'docker stop managerstation || true'
-                                    sh 'docker rm managerstation || true'
-
-                                    // Run the new container
-                                    docker.image("managerstation:v1.0").run("-d --name managerstation -p 8089:8089")
-                                }
-                            }
-                        }
-
     }
 
 
