@@ -41,15 +41,6 @@ pipeline {
                }
 
 
-  stage('Docker Build') {
-            steps {
-                script {
-                    sh 'docker build -t ikramdhibikram/stationski:1.0 .'
-                }
-            }
-        }
-
-
                 stage('Docker Build') {
                            steps {
                                echo 'Building Docker image...'
