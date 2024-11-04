@@ -5,7 +5,8 @@ pipeline {
         stage('Checkout GIT') {
             steps {
                 echo 'Pulling...'
-                git branch: 'Mariem', url: 'https://github.com/ikramdhib/StationSki5SAE2Devops.git', credentialsId: 'GitHub-PAT-Jenkins'
+                git branch: 'Mariem', url: 'https://github.com/ikramdhib/StationSki5SAE2Devops.git',
+                 credentialsId: 'GitHub-PAT-Jenkins'
             }
         }
 
@@ -45,7 +46,7 @@ pipeline {
                  steps {
                      echo 'Building Docker image...'
                      script {
-                         sh 'docker build -t maryemsebei/managerstationski:1.0 .'
+                         sh 'docker build -t mariemsebei/managerstationski:1.0 .'
                          sh 'docker images'
                      }
                  }
