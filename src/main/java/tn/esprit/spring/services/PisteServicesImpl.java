@@ -19,7 +19,7 @@ public class PisteServicesImpl implements  IPisteServices{
     }
 
     @Override
-    public Piste addPiste(PisteDTO piste) {
+    public Piste addPiste(Piste piste) {
         return pisteRepository.save(piste);
     }
 

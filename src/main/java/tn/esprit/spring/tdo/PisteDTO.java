@@ -4,12 +4,21 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.FieldDefaults;
+import tn.esprit.spring.entities.Color;
 import tn.esprit.spring.entities.Piste;
+import tn.esprit.spring.entities.Skier;
+
+import javax.persistence.*;
+import java.util.Set;
 
 @Getter
 @Setter
-@FieldDefaults(level=AccessLevel.PRIVATE)
-public class PisteDTO extends Piste {
+public class PisteDTO  {
 
-	
+    private Long numPiste;
+    private String namePiste;
+    private Color color;
+    private int length;
+    private int slope;
+    private Set<Skier> skiers;
 }

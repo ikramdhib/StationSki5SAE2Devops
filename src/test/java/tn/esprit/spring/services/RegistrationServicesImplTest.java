@@ -46,7 +46,7 @@ class RegistrationServicesImplTest {
     void testAddRegistrationAndAssignToSkier() {
         // Créer un skieur avec des valeurs valides pour tous les champs
         Skier skier = new Skier(1L, "John", "Doe", LocalDate.of(2000, 1, 1), "CityName", null, null, null);
-        RegistrationDTO registration = new RegistrationDTO();
+        Registration registration = new Registration();
         registration.setNumWeek(5);
 
         when(skierRepository.findById(1L)).thenReturn(Optional.of(skier));
@@ -81,7 +81,7 @@ class RegistrationServicesImplTest {
         course.setNumCourse(1L);
         course.setTypeCourse(TypeCourse.COLLECTIVE_CHILDREN);
 
-        RegistrationDTO registration = new RegistrationDTO();
+        Registration registration = new Registration();
         registration.setNumWeek(5);
 
         when(skierRepository.findById(1L)).thenReturn(Optional.of(skier));
@@ -103,7 +103,7 @@ class RegistrationServicesImplTest {
         course.setTypeCourse(TypeCourse.COLLECTIVE_CHILDREN);
 
         // Création de l'objet Registration avec les valeurs appropriées
-        RegistrationDTO registration = new RegistrationDTO();
+        Registration registration = new Registration();
         registration.setNumWeek(5);
 
         // Configuration des mocks pour retourner des valeurs valides et non nulles

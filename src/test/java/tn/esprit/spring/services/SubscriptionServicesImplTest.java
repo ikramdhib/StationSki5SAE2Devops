@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tn.esprit.spring.entities.Skier;
 import tn.esprit.spring.entities.Subscription;
 import tn.esprit.spring.entities.TypeSubscription;
 import tn.esprit.spring.repositories.ISkierRepository;
@@ -30,12 +31,12 @@ class SubscriptionServicesImplTest {
         @InjectMocks
         private SubscriptionServicesImpl subscriptionServices;
 
-        private SubscriptionDTO subscription;
+        private Subscription subscription;
 
         @BeforeEach
         void setUp() {
             MockitoAnnotations.openMocks(this);
-            subscription = new SubscriptionDTO();
+            subscription = new Subscription();
             subscription.setTypeSub(TypeSubscription.MONTHLY);
             subscription.setStartDate(LocalDate.now());
         }
@@ -123,7 +124,7 @@ class SubscriptionServicesImplTest {
         void retrieveSubscriptions() {
             // Setup
             Long numSub = 1L;
-            SubscriptionDTO subscription = new SubscriptionDTO();
+            Subscription subscription = new Subscription();
             subscription.setNumSub(numSub);
             subscription.setStartDate(LocalDate.now());
             subscription.setTypeSub(TypeSubscription.MONTHLY); // or any other type
@@ -134,7 +135,7 @@ class SubscriptionServicesImplTest {
             List<Subscription> mockSubscriptions = new ArrayList<>();
             mockSubscriptions.add(subscription);
             when(subscriptionRepository.findDistinctOrderByEndDateAsc()).thenReturn(mockSubscriptions);
-            SkierDTO skierDTO = new SkierDTO();
+            Skier skierDTO = new Skier();
             skierDTO.setFirstName("Joe");
             skierDTO.setLastName("DOhn");
             when(skierRepository.findBySubscription(subscription)).thenReturn(skierDTO);

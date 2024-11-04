@@ -20,7 +20,7 @@ public class InstructorServicesImpl implements IInstructorServices{
     private ICourseRepository courseRepository;
 
     @Override
-    public Instructor addInstructor(InstructorDTO instructor) {
+    public Instructor addInstructor(Instructor instructor) {
         return instructorRepository.save(instructor);
     }
 
@@ -30,7 +30,7 @@ public class InstructorServicesImpl implements IInstructorServices{
     }
 
     @Override
-    public Instructor updateInstructor(InstructorDTO instructor) {
+    public Instructor updateInstructor(Instructor instructor) {
         return instructorRepository.save(instructor);
     }
 
@@ -40,7 +40,7 @@ public class InstructorServicesImpl implements IInstructorServices{
     }
 
     @Override
-    public Instructor addInstructorAndAssignToCourse(InstructorDTO instructor, Long numCourse) {
+    public Instructor addInstructorAndAssignToCourse(Instructor instructor, Long numCourse) {
         Course course = courseRepository.findById(numCourse).orElse(null);
         Set<Course> courseSet = new HashSet<>();
         courseSet.add(course);

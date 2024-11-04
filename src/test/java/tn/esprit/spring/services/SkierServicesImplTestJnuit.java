@@ -5,19 +5,26 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import tn.esprit.spring.entities.Course;
+import tn.esprit.spring.entities.Piste;
+import tn.esprit.spring.entities.Registration;
 import tn.esprit.spring.entities.Skier;
 import tn.esprit.spring.entities.Subscription;
 import tn.esprit.spring.entities.TypeSubscription;
+import tn.esprit.spring.repositories.ICourseRepository;
+import tn.esprit.spring.repositories.IPisteRepository;
 import tn.esprit.spring.repositories.ISkierRepository;
 import tn.esprit.spring.repositories.ISubscriptionRepository;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@ActiveProfiles("test") // Utiliser le profil de test
+@ActiveProfiles("test")
 class SkierServicesImplTestJnuit {
 
     @Autowired
@@ -29,11 +36,19 @@ class SkierServicesImplTestJnuit {
     @Autowired
     private ISubscriptionRepository subscriptionRepository;
 
+    @Autowired
+    private ICourseRepository courseRepository;
+
+    @Autowired
+    private IPisteRepository pisteRepository;
+
+
     @BeforeEach
     void setUp() {
-        // Optionnel: Nettoyez la base de données ou initialisez les données nécessaires
+        // Optional: Clean up the database or initialize necessary data
+        skierRepository.deleteAll();
+        subscriptionRepository.deleteAll();
     }
-
     @Test
     void testAddSkier() {
         Skier skier = new Skier();
@@ -42,32 +57,64 @@ class SkierServicesImplTestJnuit {
         subscription.setStartDate(LocalDate.now());
         skier.setSubscription(subscription);
 
-        // Appeler la méthode à tester
+        // Call the method under test
         Skier savedSkier = skierService.addSkier(skier);
 
-        // Vérifier les assertions
-        assertNotNull(savedSkier); // Le skieur ne devrait pas être null
-        assertNotNull(savedSkier.getSubscription().getEndDate()); // La date de fin de l'abonnement ne devrait pas être null
-        assertEquals(LocalDate.now().plusYears(1), savedSkier.getSubscription().getEndDate()); // Vérifiez que la date de fin est correcte
+        // Assert the results
+        assertNotNull(savedSkier); // The skier should not be null
+        assertNotNull(savedSkier.getSubscription().getEndDate()); // The subscription end date should not be null
+        assertEquals(LocalDate.now().plusYears(1), savedSkier.getSubscription().getEndDate()); // Check end date
     }
+
+
 
     @Test
-    void testRetrieveSkier() {
-        Long numSkier = 1L; // ID d'un skieur existant
-
-        // Créez un skieur fictif et enregistrez-le
+    void testAssignSkierToSubscription() {
         Skier skier = new Skier();
-        skier.setNumSkier(numSkier);
         skierRepository.save(skier);
 
-        // Appeler la méthode à tester
-        Optional<Skier> result = Optional.ofNullable(skierService.retrieveSkier(numSkier));
+        Subscription subscription = new Subscription();
+        subscription.setTypeSub(TypeSubscription.MONTHLY);
+        subscriptionRepository.save(subscription);
 
-        // Vérifier les assertions
-        assertTrue(result.isPresent()); // Le skieur devrait être présent
-        assertEquals(numSkier, result.get().getNumSkier()); // Vérifiez que l'ID correspond
+        Skier result = skierService.assignSkierToSubscription(skier.getNumSkier(), subscription.getNumSub());
+
+        assertNotNull(result);
+        assertEquals(subscription.getNumSub(), result.getSubscription().getNumSub());
     }
 
-    // Ajoutez d'autres tests selon vos besoins
 
+    @Test
+    void testRemoveSkier() {
+        Skier skier = new Skier();
+        skierRepository.save(skier);
+
+        skierService.removeSkier(skier.getNumSkier());
+
+        Optional<Skier> result = skierRepository.findById(skier.getNumSkier());
+        assertFalse(result.isPresent());
+    }
+
+
+
+    @Test
+    void testRetrieveSkiersBySubscriptionType() {
+        Skier skier1 = new Skier();
+        Skier skier2 = new Skier();
+
+        Subscription subscription1 = new Subscription();
+        subscription1.setTypeSub(TypeSubscription.ANNUAL);
+        skier1.setSubscription(subscription1);
+
+        Subscription subscription2 = new Subscription();
+        subscription2.setTypeSub(TypeSubscription.ANNUAL);
+        skier2.setSubscription(subscription2);
+
+        skierRepository.save(skier1);
+        skierRepository.save(skier2);
+
+         List<Skier> skiers = skierService.retrieveSkiersBySubscriptionType(TypeSubscription.ANNUAL);
+
+        assertEquals(2, skiers.size());
+    }
 }

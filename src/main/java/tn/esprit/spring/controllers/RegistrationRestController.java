@@ -20,13 +20,13 @@ public class RegistrationRestController {
 
     @Operation(description = "Add Registration and Assign to Skier")
     @PutMapping("/addAndAssignToSkier/{numSkieur}")
-    public Registration addAndAssignToSkier(@RequestBody RegistrationDTO registration,
+    public Registration addAndAssignToSkier(@RequestBody Registration registration,
                                             @PathVariable("numSkieur") Long numSkieur)
     {
         return  registrationServices.addRegistrationAndAssignToSkier(registration,numSkieur);
     }
     @Operation(description = "Assign Registration to Course")
-    @PutMapping(value = "/assignToCourse/{numRegis}/{numSkieur}",produces = "text/plain")
+    @PutMapping(value = "/assignToCourse/{numRegis}/{numSkieur}")
     public Registration assignToCourse( @PathVariable("numRegis") Long numRegistration,
                                         @PathVariable("numSkieur") Long numCourse){
         return registrationServices.assignRegistrationToCourse(numRegistration, numCourse);
@@ -34,8 +34,8 @@ public class RegistrationRestController {
 
 
     @Operation(description = "Add Registration and Assign to Skier and Course")
-    @PutMapping(value = "/addAndAssignToSkierAndCourse/{numSkieur}/{numCourse}",produces = "text/plain")
-    public Registration addAndAssignToSkierAndCourse(@RequestBody RegistrationDTO registration,
+    @PutMapping(value = "/addAndAssignToSkierAndCourse/{numSkieur}/{numCourse}")
+    public Registration addAndAssignToSkierAndCourse(@RequestBody Registration registration,
                                                      @PathVariable("numSkieur") Long numSkieur,
                                                      @PathVariable("numCourse") Long numCourse)
     {
@@ -43,7 +43,7 @@ public class RegistrationRestController {
     }
 
     @Operation(description = "Numbers of the weeks when an instructor has given lessons in a given support")
-    @GetMapping(value = "/numWeeks/{numInstructor}/{support}",produces = "text/plain")
+    @GetMapping(value = "/numWeeks/{numInstructor}/{support}")
     public List<Integer> numWeeksCourseOfInstructorBySupport(@PathVariable("numInstructor")Long numInstructor,
                                                                   @PathVariable("support") Support support) {
         return registrationServices.numWeeksCourseOfInstructorBySupport(numInstructor,support);

@@ -9,7 +9,7 @@ public interface IPisteServices {
 
     List<Piste> retrieveAllPistes();
 
-    Piste  addPiste(PisteDTO piste);
+    Piste  addPiste(Piste piste);
 
     void removePiste (Long numPiste);
 

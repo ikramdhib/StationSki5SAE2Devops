@@ -19,29 +19,29 @@ public class InstructorRestController {
     private final IInstructorServices instructorServices;
 
     @Operation(description = "Add Instructor")
-    @PostMapping(value = "/add",produces = "text/plain")
-    public Instructor addInstructor(@RequestBody InstructorDTO instructorDTO){
+    @PostMapping(value = "/add")
+    public Instructor addInstructor(@RequestBody Instructor instructorDTO){
         return  instructorServices.addInstructor(instructorDTO);
     }
     @Operation(description = "Add Instructor and Assign To Course")
-    @PutMapping(value = "/addAndAssignToCourse/{numCourse}",produces = "text/plain")
-    public Instructor addAndAssignToInstructor(@RequestBody InstructorDTO instructor, @PathVariable("numCourse")Long numCourse){
+    @PutMapping(value = "/addAndAssignToCourse/{numCourse}")
+    public Instructor addAndAssignToInstructor(@RequestBody Instructor instructor, @PathVariable("numCourse")Long numCourse){
         return  instructorServices.addInstructorAndAssignToCourse(instructor,numCourse);
     }
     @Operation(description = "Retrieve all Instructors")
-    @GetMapping(value = "/all",produces = "text/plain")
+    @GetMapping(value = "/all")
     public List<Instructor> getAllInstructors(){
         return instructorServices.retrieveAllInstructors();
     }
 
     @Operation(description = "Update Instructor ")
-    @PutMapping(value = "/update",produces = "text/plain")
-    public Instructor updateInstructor(@RequestBody InstructorDTO instructorTDO){
-        return  instructorServices.updateInstructor(instructorTDO);
+    @PutMapping(value = "/update")
+    public Instructor updateInstructor(@RequestBody Instructor instructor){
+        return  instructorServices.updateInstructor(instructor);
     }
 
     @Operation(description = "Retrieve Instructor by Id")
-    @GetMapping(value = "/get/{id-instructor}",produces = "text/plain")
+    @GetMapping(value = "/get/{id-instructor}")
     public Instructor getById(@PathVariable("id-instructor") Long numInstructor){
         return instructorServices.retrieveInstructor(numInstructor);
     }

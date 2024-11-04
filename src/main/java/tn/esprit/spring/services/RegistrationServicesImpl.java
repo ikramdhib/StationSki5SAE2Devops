@@ -23,7 +23,7 @@ public class RegistrationServicesImpl implements IRegistrationServices {
     private ICourseRepository courseRepository;
 
     @Override
-    public Registration addRegistrationAndAssignToSkier(RegistrationDTO registration, Long numSkier) {
+    public Registration addRegistrationAndAssignToSkier(Registration registration, Long numSkier) {
         Skier skier = skierRepository.findById(numSkier).orElse(null);
         registration.setSkier(skier);
         return registrationRepository.save(registration);
@@ -36,7 +36,7 @@ public class RegistrationServicesImpl implements IRegistrationServices {
 
     @Transactional
     @Override
-    public Registration addRegistrationAndAssignToSkierAndCourse(RegistrationDTO registration, Long numSkieur, Long numCours) {
+    public Registration addRegistrationAndAssignToSkierAndCourse(Registration registration, Long numSkieur, Long numCours) {
         Skier skier = skierRepository.findById(numSkieur).orElse(null);
         Course course = courseRepository.findById(numCours).orElse(null);
 
@@ -61,7 +61,7 @@ public class RegistrationServicesImpl implements IRegistrationServices {
         return registrationRepository.save(registration);
     }
 
-    private boolean isAlreadyRegisteredForCourse(RegistrationDTO registration, Skier skier, Course course) {
+    private boolean isAlreadyRegisteredForCourse(Registration registration, Skier skier, Course course) {
         return registrationRepository.countDistinctByNumWeekAndSkier_NumSkierAndCourse_NumCourse(
                 registration.getNumWeek(), skier.getNumSkier(), course.getNumCourse()) >= 1;
     }
@@ -70,7 +70,7 @@ public class RegistrationServicesImpl implements IRegistrationServices {
         return Period.between(dateOfBirth, LocalDate.now()).getYears();
     }
 
-    private Registration processCourseRegistration(Course course, RegistrationDTO registration, Skier skier, int ageSkieur) {
+    private Registration processCourseRegistration(Course course, Registration registration, Skier skier, int ageSkieur) {
         if (isAgeAppropriateForCourse(course, ageSkieur)) {
             if (isCourseAvailableForWeek(course, registration.getNumWeek())) {
                 return assignRegistration(registration, skier, course);
@@ -112,7 +112,7 @@ public class RegistrationServicesImpl implements IRegistrationServices {
         return registrationRepository.countByCourseAndNumWeek(course, numWeek) < 6;
     }
 
-    private Registration assignRegistration(RegistrationDTO registration, Skier skier, Course course) {
+    private Registration assignRegistration(Registration registration, Skier skier, Course course) {
         registration.setSkier(skier);
         registration.setCourse(course);
         return registrationRepository.save(registration);

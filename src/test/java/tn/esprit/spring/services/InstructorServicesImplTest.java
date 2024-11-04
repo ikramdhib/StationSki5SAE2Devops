@@ -42,7 +42,7 @@ class InstructorServicesImplTest {
 
     @Test
     void testAddInstructor() {
-        InstructorDTO instructorDTO = new InstructorDTO();
+        Instructor instructorDTO = new Instructor();
         Instructor instructor = new Instructor();
 
         when(instructorRepository.save(any(Instructor.class))).thenReturn(instructor);
@@ -69,7 +69,7 @@ class InstructorServicesImplTest {
 
     @Test
     void testUpdateInstructor() {
-        InstructorDTO instructorDTO = new InstructorDTO();
+        Instructor instructorDTO = new Instructor();
         Instructor instructor = new Instructor();
 
         when(instructorRepository.save(any(Instructor.class))).thenReturn(instructor);
@@ -94,7 +94,7 @@ class InstructorServicesImplTest {
 
     @Test
     void testAddInstructorAndAssignToCourse() {
-        InstructorDTO instructorDTO = new InstructorDTO();
+        Instructor instructorDTO = new Instructor();
         Instructor instructor = new Instructor();
         Course course = new Course();
         Set<Course> courseSet = new HashSet<>();

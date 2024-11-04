@@ -25,7 +25,7 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     private ISkierRepository skierRepository;
 
     @Override
-    public Subscription addSubscription(SubscriptionDTO subscription) {
+    public Subscription addSubscription(Subscription subscription) {
         switch (subscription.getTypeSub()) {
             case ANNUAL:
                 subscription.setEndDate(subscription.getStartDate().plusYears(1));
@@ -41,7 +41,7 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
     }
 
     @Override
-    public Subscription updateSubscription(SubscriptionDTO subscription) {
+    public Subscription updateSubscription(Subscription subscription) {
         return subscriptionRepository.save(subscription);
     }
 

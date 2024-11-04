@@ -67,7 +67,7 @@ class PisteServicesImplTest {
     void addPiste() {
 
         Mockito.when(pisteRepository.save(Mockito.any(Piste.class))).thenReturn(pisteA);
-        PisteDTO pisteDTO = new PisteDTO();
+        Piste pisteDTO = new Piste();
               pisteDTO.setNamePiste("Green Valley");
                 pisteDTO.setColor(Color.RED);
                 pisteDTO.setLength(500);

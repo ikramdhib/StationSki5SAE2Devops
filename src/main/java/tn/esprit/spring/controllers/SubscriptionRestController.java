@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Subscription;
 import tn.esprit.spring.entities.TypeSubscription;
 import tn.esprit.spring.services.ISubscriptionServices;
-import tn.esprit.spring.tdo.SubscriptionDTO;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,28 +21,28 @@ public class SubscriptionRestController {
     private final ISubscriptionServices subscriptionServices;
 
     @Operation(description = "Add Subscription ")
-    @PostMapping(value = "/add",produces = "text/plain")
-    public Subscription addSubscription(@RequestBody SubscriptionDTO subscriptionTDO){
+    @PostMapping(value = "/add")
+    public Subscription addSubscription(@RequestBody Subscription subscriptionTDO){
         return  subscriptionServices.addSubscription(subscriptionTDO);
     }
     @Operation(description = "Retrieve Subscription by Id")
-    @GetMapping(value = "/get/{id-subscription}",produces = "text/plain")
+    @GetMapping(value = "/get/{id-subscription}")
     public Subscription getById(@PathVariable("id-subscription") Long numSubscription){
         return subscriptionServices.retrieveSubscriptionById(numSubscription);
     }
     
     @Operation(description = "Retrieve Subscriptions by Type")
-    @GetMapping(value = "/all/{typeSub}",produces = "text/plain")
+    @GetMapping(value = "/all/{typeSub}")
     public Set<Subscription> getSubscriptionsByType(@PathVariable("typeSub") TypeSubscription typeSubscription){
         return subscriptionServices.getSubscriptionByType(typeSubscription);
     }
     @Operation(description = "Update Subscription ")
-    @PutMapping(value = "/update",produces = "text/plain")
-    public Subscription updateSubscription(@RequestBody SubscriptionDTO subscriptionTDO){
+    @PutMapping(value = "/update")
+    public Subscription updateSubscription(@RequestBody Subscription subscriptionTDO){
         return  subscriptionServices.updateSubscription(subscriptionTDO);
     }
     @Operation(description = "Retrieve Subscriptions created between two dates")
-    @GetMapping(value = "/all/{date1}/{date2}",produces = "text/plain")
+    @GetMapping(value = "/all/{date1}/{date2}")
     public List<Subscription> getSubscriptionsByDates(@PathVariable("date1") LocalDate startDate,
                                                       @PathVariable("date2") LocalDate endDate){
         return subscriptionServices.retrieveSubscriptionsByDates(startDate, endDate);

@@ -8,14 +8,14 @@ import java.util.List;
 
 public interface IInstructorServices {
 
-    Instructor addInstructor(InstructorDTO instructor);
+    Instructor addInstructor(Instructor instructor);
 
     List<Instructor> retrieveAllInstructors();
 
-    Instructor updateInstructor(InstructorDTO instructor);
+    Instructor updateInstructor(Instructor instructor);
 
     Instructor retrieveInstructor(Long numInstructor);
 
-    Instructor addInstructorAndAssignToCourse(InstructorDTO instructor, Long numCourse);
+    Instructor addInstructorAndAssignToCourse(Instructor instructor, Long numCourse);
 
 }

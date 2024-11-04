@@ -10,9 +10,9 @@ import tn.esprit.spring.tdo.SubscriptionDTO;
 
 public interface ISubscriptionServices {
 
-	Subscription addSubscription(SubscriptionDTO subscription);
+	Subscription addSubscription(Subscription subscription);
 
-	Subscription updateSubscription(SubscriptionDTO subscription);
+	Subscription updateSubscription(Subscription subscription);
 
 	Subscription retrieveSubscriptionById(Long numSubscription);
 

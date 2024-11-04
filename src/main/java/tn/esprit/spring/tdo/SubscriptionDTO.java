@@ -8,13 +8,19 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 import tn.esprit.spring.entities.Subscription;
+import tn.esprit.spring.entities.TypeSubscription;
+
+import java.time.LocalDate;
 
 @Getter
 @Setter
 @ToString
-@FieldDefaults(level=AccessLevel.PRIVATE)
-public class SubscriptionDTO extends Subscription {
+public class SubscriptionDTO  {
 
-
+    private Long numSub;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private Float price;
+    private TypeSubscription typeSub;
 
 }
