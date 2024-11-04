@@ -50,19 +50,23 @@ pipeline {
                  }
              }
 
-             stage('Docker Repository Creation') {
-                       steps {
-                           withCredentials([usernamePassword(credentialsId: 'Docker-Credential', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                               script {
-                                   echo 'Creating Docker repository if it does not exist...'
-                                   // Create the Docker repository using the Docker Hub API
-                                   sh '''
-                                   curl -X POST -u $DOCKER_USERNAME:$DOCKER_PASSWORD https://hub.docker.com/v2/repositories/maryemsebei/managerstationski/
-                                   '''
-                               }
-                           }
-                       }
-                   }
+          stage('Docker Repository Creation') {
+              steps {
+                  withCredentials([usernamePassword(credentialsId: 'Docker-Credential', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                      script {
+                          echo 'Checking if Docker repository exists...'
+                          def response = sh(script: "curl -s -u $DOCKER_USERNAME:$DOCKER_PASSWORD https://hub.docker.com/v2/repositories/maryemsebei/managerstationski/", returnStdout: true)
+                          if (response.contains('404')) {
+                              echo 'Repository does not exist, creating now...'
+                              def createResponse = sh(script: "curl -s -X POST -u $DOCKER_USERNAME:$DOCKER_PASSWORD https://hub.docker.com/v2/repositories/maryemsebei/managerstationski/", returnStdout: true)
+                              echo "Repository creation response: ${createResponse}"
+                          } else {
+                              echo 'Repository already exists.'
+                          }
+                      }
+                  }
+              }
+          }
 
                    stage('Docker Push') {
                        steps {
