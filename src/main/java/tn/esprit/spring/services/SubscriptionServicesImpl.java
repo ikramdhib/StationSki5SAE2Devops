@@ -25,6 +25,10 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
 
     @Override
     public Subscription addSubscription(Subscription subscription) {
+        if (subscription.getTypeSub() == null) {
+            throw new IllegalArgumentException("TypeSubscription cannot be null");
+        }
+
         switch (subscription.getTypeSub()) {
             case ANNUAL:
                 subscription.setEndDate(subscription.getStartDate().plusYears(1));
@@ -35,9 +39,13 @@ public class SubscriptionServicesImpl implements ISubscriptionServices{
             case MONTHLY:
                 subscription.setEndDate(subscription.getStartDate().plusMonths(1));
                 break;
+            default:
+                throw new IllegalArgumentException("Invalid TypeSubscription");
         }
+
         return subscriptionRepository.save(subscription);
     }
+
 
     @Override
     public Subscription updateSubscription(Subscription subscription) {
