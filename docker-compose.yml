@@ -13,7 +13,7 @@ services:
       - db:/var/lib/mysql
 
   stationski:
-    image: maryemsebei/managerstationski:1.0
+    image: mariemsebei/managerstationski:1.0
     depends_on:
       - mysqldb
     restart: on-failure
