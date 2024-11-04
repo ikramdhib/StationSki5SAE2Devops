@@ -67,4 +67,18 @@ pipeline {
             }
         }
     }
+        post {
+           always {
+               script {
+                   emailext(
+                            subject: "Build ${currentBuild.currentResult}: Job '${env.JOB_NAME}' #${env.BUILD_NUMBER}",
+                            body: """
+                            <p>Build result: ${currentBuild.currentResult}</p>
+                            <p>Check console output at <a href="${env.BUILD_URL}">this link</a></p>
+                            """,
+                            to: "ikram.dhib@esprit.tn
+                        )
+           }
+        }
+    }
 }
