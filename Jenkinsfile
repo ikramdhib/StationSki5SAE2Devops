@@ -76,7 +76,7 @@ pipeline {
                             <p>Build result: ${currentBuild.currentResult}</p>
                             <p>Check console output at <a href="${env.BUILD_URL}">this link</a></p>
                             """,
-                            to: "ikram.dhib@esprit.tn
+                            to: "ikram.dhib@esprit.tn"
                         )
            }
         }
