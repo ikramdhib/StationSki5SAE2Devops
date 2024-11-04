@@ -46,6 +46,7 @@ pipeline {
                      echo 'Building Docker image...'
                      script {
                          sh 'docker build -t maryemsebei/managerstationski:1.0 .'
+                         sh 'docker images' 
                      }
                  }
              }
