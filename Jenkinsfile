@@ -52,18 +52,17 @@ pipeline {
              }
 
 
-            stage('Docker Push') {
-                       steps {
-                           withCredentials([usernamePassword(credentialsId: 'Docker-Credential', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                               script {
-                                   echo 'Logging in to Docker Hub...'
-                                   sh 'echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin'
-                                   echo 'Pushing Docker image...'
-                                   sh 'docker push mariemsebei/managerstationski:1.0'
-                               }
-                           }
-                       }
-                   }
+
+        stage('Docker Push') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'Docker-Credential', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                    script {
+                        sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                        sh 'docker push mariemsebei/managerstationski:1.0'
+                    }
+                }
+            }
+        }
 
 
 
