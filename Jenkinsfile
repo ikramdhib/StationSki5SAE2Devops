@@ -45,7 +45,7 @@ pipeline {
                  steps {
                      echo 'Building Docker image...'
                      script {
-                         sh 'docker build -t maryemsebei/managerstationski:1.0 .'
+                         sh 'docker build -t maryemsebeii/managerstationski:1.0 .'
                      }
                  }
              }
@@ -75,7 +75,7 @@ pipeline {
                                    echo 'Logging in to Docker Hub...'
                                    sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin"
                                    echo 'Pushing Docker image...'
-                                   sh 'docker push maryemsebei/managerstationski:1.0'
+                                   sh 'docker push maryemsebeii/managerstationski:1.0'
                                }
                            }
                        }
