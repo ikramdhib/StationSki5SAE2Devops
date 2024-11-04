@@ -45,41 +45,23 @@ pipeline {
                  steps {
                      echo 'Building Docker image...'
                      script {
-                         sh 'docker build -t maryemsebeii/managerstationski:1.0 .'
+                         sh 'docker build -t maryemsebei/managerstationski:1.0 .'
                      }
                  }
              }
 
-          stage('Docker Repository Creation') {
-              steps {
-                  withCredentials([usernamePassword(credentialsId: 'Docker-Credential', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                      script {
-                          echo 'Checking if Docker repository exists...'
-                          def response = sh(script: "curl -s -u $DOCKER_USERNAME:$DOCKER_PASSWORD https://hub.docker.com/v2/repositories/maryemsebei/managerstationski/", returnStdout: true)
-                          if (response.contains('404')) {
-                              echo 'Repository does not exist, creating now...'
-                              def createResponse = sh(script: "curl -s -X POST -u $DOCKER_USERNAME:$DOCKER_PASSWORD https://hub.docker.com/v2/repositories/maryemsebei/managerstationski/", returnStdout: true)
-                              echo "Repository creation response: ${createResponse}"
-                          } else {
-                              echo 'Repository already exists.'
-                          }
-                      }
-                  }
-              }
-          }
 
-                   stage('Docker Push') {
-                       steps {
-                           withCredentials([usernamePassword(credentialsId: 'Docker-Credential', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                               script {
-                                   echo 'Logging in to Docker Hub...'
-                                   sh "echo \$DOCKER_PASSWORD | docker login -u \$DOCKER_USERNAME --password-stdin"
-                                   echo 'Pushing Docker image...'
-                                   sh 'docker push maryemsebeii/managerstationski:1.0'
-                               }
-                           }
+        stage('Docker Push') {
+               steps {
+                   withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                       script {
+                           sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
+                           sh 'docker push maryemsebei/managerstationski:1.0'
                        }
                    }
+               }
+           }
+
 
 
 
