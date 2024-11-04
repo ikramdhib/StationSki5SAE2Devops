@@ -53,7 +53,7 @@ pipeline {
 
         stage('Docker Push') {
                steps {
-                   withCredentials([usernamePassword(credentialsId: 'dockerhub-credentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
+                   withCredentials([usernamePassword(credentialsId: 'Docker-Credential', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                        script {
                            sh 'docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD'
                            sh 'docker push maryemsebei/managerstationski:1.0'
@@ -61,7 +61,6 @@ pipeline {
                    }
                }
            }
-
 
 
 
