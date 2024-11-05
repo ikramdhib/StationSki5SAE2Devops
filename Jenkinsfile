@@ -61,28 +61,27 @@ pipeline {
                }
              }
         }
-        post {
-            success {
-                script {
-                    def email = credentials('email_address') // Use the ID you set earlier
-                    mail(
-                        to: email,
-                        subject: "Successful Pipeline: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
-                        body: "The deployment was successful for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}. You can review the details at ${env.BUILD_URL}."
-                    )
+    }
+    post {
+        success {
+             script {
+                def email = credentials('email_address') // Use the ID you set earlier
+                     mail(
+                          to: email,
+                          subject: "Successful Pipeline: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+                          body: "The deployment was successful for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}. You can review the details at ${env.BUILD_URL}."
+                     )
                 }
-            }
-            failure {
-                script {
-                    def email = credentials('email_address') // Use the same ID here
-                    mail(
-                        to: email,
-                        subject: "Failed Pipeline: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
-                        body: "The deployment failed for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}. Please review the details at ${env.BUILD_URL}."
-                    )
-                }
-            }
         }
-
+        failure {
+             script {
+                def email = credentials('email_address') // Use the same ID here
+                      mail(
+                           to: email,
+                           subject: "Failed Pipeline: ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}",
+                           body: "The deployment failed for ${env.JOB_NAME} - Build #${env.BUILD_NUMBER}. Please review the details at ${env.BUILD_URL}."
+                      )
+             }
+        }
     }
 }
