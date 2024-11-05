@@ -45,16 +45,12 @@ class InstructorServicesImplTest {
     @Test
     void testToDTO() {
         // Given
-        Course course = new Course(); // Créez un ou plusieurs objets Course si nécessaire
-        Set<Course> courses = new HashSet<>();
-        courses.add(course);
-
         Instructor instructor = new Instructor();
         instructor.setNumInstructor(1L);
         instructor.setFirstName("John");
         instructor.setLastName("Doe");
         instructor.setDateOfHire(LocalDate.of(2020, 1, 1));
-        instructor.setCourses(courses);
+        instructor.setCourses(new HashSet<>()); // Ajoutez des cours si nécessaire
 
         // When
         InstructorDTO instructorDTO = instructorMapper.toDTO(instructor);
