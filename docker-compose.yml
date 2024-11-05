@@ -31,5 +31,13 @@ services:
     tty: true
     volumes:
       - .m2:/root/.m2
+  angular-app:
+    image: nihelroui/stationskifront:1.0
+    ports:
+      - "4200:4200"
+    depends_on:
+      - db-mysql
+      - station-ski
+    restart: unless-stopped
 volumes:
   db:
