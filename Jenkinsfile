@@ -67,12 +67,12 @@ pipeline {
 
    stage('Run Docker Compose') {
             steps {
-                dir('.') {
-                    sh 'ls -la'
-                    sh 'docker compose up -d'
-                    sh 'docker-compose logs mysqldb'
-                }
-            }
+                            dir('.') {
+                                sh 'ls -la'
+                                sh 'docker compose up -d'
+                                sh 'docker compose logs mysqldb' 
+                            }
+                        }
         }
 
 
