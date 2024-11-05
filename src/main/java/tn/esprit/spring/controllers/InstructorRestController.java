@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.spring.dto.InstructorDTO;
 import tn.esprit.spring.entities.Instructor;
-import tn.esprit.spring.entities.InstructorDTO;
 import tn.esprit.spring.services.IInstructorServices;
 
 import java.util.List;

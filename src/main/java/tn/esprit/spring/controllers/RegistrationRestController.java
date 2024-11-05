@@ -7,9 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import tn.esprit.spring.entities.Registration;
-import tn.esprit.spring.entities.RegistrationDTO;
 import tn.esprit.spring.entities.Support;
 import tn.esprit.spring.services.IRegistrationServices;
+import tn.esprit.spring.dto.RegistrationDTO;
 
 import java.util.List;
 

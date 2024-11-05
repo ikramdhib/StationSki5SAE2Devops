@@ -6,8 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.spring.dto.PisteDTO;
 import tn.esprit.spring.entities.Piste;
-import tn.esprit.spring.entities.PisteDTO;
 import tn.esprit.spring.services.IPisteServices;
 
 import java.util.List;
