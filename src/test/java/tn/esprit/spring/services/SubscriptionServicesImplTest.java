@@ -126,26 +126,30 @@ import static org.mockito.Mockito.*;
         Subscription subscription1 = new Subscription();
         subscription1.setNumSub(numSub);
         subscription1.setStartDate(LocalDate.now());
-        subscription1.setTypeSub(TypeSubscription.MONTHLY); // or any other type
+        subscription1.setTypeSub(TypeSubscription.MONTHLY);
 
-        // Now call the method that adds subscription
-        subscriptionServices.addSubscription(subscription1); // This will set endDate properly
+        subscriptionServices.addSubscription(subscription1);
 
         List<Subscription> mockSubscriptions = new ArrayList<>();
         mockSubscriptions.add(subscription1);
         when(subscriptionRepository.findDistinctOrderByEndDateAsc()).thenReturn(mockSubscriptions);
+
+        // Créez une instance de Skier
         Skier skierDTO = new Skier();
         skierDTO.setFirstName("Joe");
         skierDTO.setLastName("DOhn");
+
+        // Ici, utilisez la même instance de subscription pour la vérification
         when(skierRepository.findBySubscription(subscription1)).thenReturn(skierDTO);
 
         // Test
         subscriptionServices.retrieveSubscriptions();
 
-        // Verify interactions
+        // Vérifiez les interactions
         verify(subscriptionRepository, times(1)).findDistinctOrderByEndDateAsc();
-        verify(skierRepository, times(1)).findBySubscription(subscription);
+        verify(skierRepository, times(1)).findBySubscription(subscription1); // Utilisez subscription1 ici
     }
+
 
     @Test
     void showMonthlyRecurringRevenue() {
