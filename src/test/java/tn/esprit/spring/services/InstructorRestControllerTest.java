@@ -13,7 +13,6 @@ import tn.esprit.spring.controllers.InstructorRestController;
 import tn.esprit.spring.dto.InstructorDTO;
 import tn.esprit.spring.entities.Instructor;
 import tn.esprit.spring.entities.InstructorMapper;
-import tn.esprit.spring.services.IInstructorServices;
 
 import java.util.ArrayList;
 import java.util.List;
