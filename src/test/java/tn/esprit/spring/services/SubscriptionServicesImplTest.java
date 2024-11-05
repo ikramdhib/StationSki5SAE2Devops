@@ -21,7 +21,7 @@ import static org.mockito.Mockito.*;
 
 
 @ExtendWith(MockitoExtension.class)
-public class SubscriptionServicesImplTest {
+ class SubscriptionServicesImplTest {
 
     @Mock
     private ISubscriptionRepository subscriptionRepository;
@@ -101,8 +101,6 @@ public class SubscriptionServicesImplTest {
         assertFalse(result.isEmpty());
         verify(subscriptionRepository, times(1)).findByTypeSubOrderByStartDateAsc(type);
     }
-
-
     @Test
     void retrieveSubscriptionsByDates() {
         // Setup
@@ -125,21 +123,21 @@ public class SubscriptionServicesImplTest {
     void retrieveSubscriptions() {
         // Setup
         Long numSub = 1L;
-        Subscription subscription = new Subscription();
-        subscription.setNumSub(numSub);
-        subscription.setStartDate(LocalDate.now());
-        subscription.setTypeSub(TypeSubscription.MONTHLY); // or any other type
+        Subscription subscription1 = new Subscription();
+        subscription1.setNumSub(numSub);
+        subscription1.setStartDate(LocalDate.now());
+        subscription1.setTypeSub(TypeSubscription.MONTHLY); // or any other type
 
         // Now call the method that adds subscription
-        subscriptionServices.addSubscription(subscription); // This will set endDate properly
+        subscriptionServices.addSubscription(subscription1); // This will set endDate properly
 
         List<Subscription> mockSubscriptions = new ArrayList<>();
-        mockSubscriptions.add(subscription);
+        mockSubscriptions.add(subscription1);
         when(subscriptionRepository.findDistinctOrderByEndDateAsc()).thenReturn(mockSubscriptions);
         Skier skierDTO = new Skier();
         skierDTO.setFirstName("Joe");
         skierDTO.setLastName("DOhn");
-        when(skierRepository.findBySubscription(subscription)).thenReturn(skierDTO);
+        when(skierRepository.findBySubscription(subscription1)).thenReturn(skierDTO);
 
         // Test
         subscriptionServices.retrieveSubscriptions();
