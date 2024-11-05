@@ -7,8 +7,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tn.esprit.spring.dto.SubscriptionDTO;
 import tn.esprit.spring.entities.Skier;
 import tn.esprit.spring.entities.Subscription;
+import tn.esprit.spring.entities.SubscriptionMapper;
 import tn.esprit.spring.entities.TypeSubscription;
 import tn.esprit.spring.repositories.ISkierRepository;
 import tn.esprit.spring.repositories.ISubscriptionRepository;
@@ -22,6 +24,7 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
  class SubscriptionServicesImplTest {
+    private SubscriptionMapper subscriptionMapper;
 
     @Mock
     private ISubscriptionRepository subscriptionRepository;
@@ -40,6 +43,47 @@ import static org.mockito.Mockito.*;
         subscription = new Subscription();
         subscription.setTypeSub(TypeSubscription.MONTHLY);
         subscription.setStartDate(LocalDate.now());
+    }
+    @Test
+    void testToDTO() {
+        // Given
+        Subscription subscription2 = new Subscription();
+        subscription2.setNumSub(1L);
+        subscription2.setStartDate(LocalDate.of(2024, 11, 1));
+        subscription2.setEndDate(LocalDate.of(2024, 12, 1));
+        subscription2.setPrice(100.0f);
+        subscription2.setTypeSub(TypeSubscription.MONTHLY);
+
+        // When
+        SubscriptionDTO subscriptionDTO = subscriptionMapper.toDTO(subscription2);
+
+        // Then
+        assertEquals(subscription.getNumSub(), subscriptionDTO.getNumSub());
+        assertEquals(subscription.getStartDate(), subscriptionDTO.getStartDate());
+        assertEquals(subscription.getEndDate(), subscriptionDTO.getEndDate());
+        assertEquals(subscription.getPrice(), subscriptionDTO.getPrice());
+        assertEquals(subscription.getTypeSub(), subscriptionDTO.getTypeSub());
+    }
+
+    @Test
+    void testToEntity() {
+        // Given
+        SubscriptionDTO subscriptionDTO = new SubscriptionDTO();
+        subscriptionDTO.setNumSub(1L);
+        subscriptionDTO.setStartDate(LocalDate.of(2024, 11, 1));
+        subscriptionDTO.setEndDate(LocalDate.of(2024, 12, 1));
+        subscriptionDTO.setPrice(100.0f);
+        subscriptionDTO.setTypeSub(TypeSubscription.MONTHLY);
+
+        // When
+        Subscription subscription1 = subscriptionMapper.toEntity(subscriptionDTO);
+
+        // Then
+        assertEquals(subscriptionDTO.getNumSub(), subscription1.getNumSub());
+        assertEquals(subscriptionDTO.getStartDate(), subscription1.getStartDate());
+        assertEquals(subscriptionDTO.getEndDate(), subscription1.getEndDate());
+        assertEquals(subscriptionDTO.getPrice(), subscription1.getPrice());
+        assertEquals(subscriptionDTO.getTypeSub(), subscription1.getTypeSub());
     }
     @Test
     void addSubscription() {

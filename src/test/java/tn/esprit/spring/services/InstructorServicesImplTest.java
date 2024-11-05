@@ -9,11 +9,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tn.esprit.spring.dto.InstructorDTO;
 import tn.esprit.spring.entities.Course;
 import tn.esprit.spring.entities.Instructor;
+import tn.esprit.spring.entities.InstructorMapper;
 import tn.esprit.spring.repositories.ICourseRepository;
 import tn.esprit.spring.repositories.IInstructorRepository;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -24,6 +27,8 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class InstructorServicesImplTest {
+    private InstructorMapper instructorMapper;
+
 
     @Mock
     private IInstructorRepository instructorRepository;
@@ -37,6 +42,51 @@ class InstructorServicesImplTest {
     @BeforeEach
     void setUp() {
         MockitoAnnotations.openMocks(this);
+    }
+    @Test
+    void testToDTO() {
+        // Given
+        Course course = new Course(); // Créez un ou plusieurs objets Course si nécessaire
+        Set<Course> courses = new HashSet<>();
+        courses.add(course);
+
+        Instructor instructor = new Instructor();
+        instructor.setNumInstructor(1L);
+        instructor.setFirstName("John");
+        instructor.setLastName("Doe");
+        instructor.setDateOfHire(LocalDate.of(2020, 1, 1));
+        instructor.setCourses(courses);
+
+        // When
+        InstructorDTO instructorDTO = instructorMapper.toDTO(instructor);
+
+        // Then
+        assertEquals(instructor.getNumInstructor(), instructorDTO.getNumInstructor());
+        assertEquals(instructor.getFirstName(), instructorDTO.getFirstName());
+        assertEquals(instructor.getLastName(), instructorDTO.getLastName());
+        assertEquals(instructor.getDateOfHire(), instructorDTO.getDateOfHire());
+        assertEquals(instructor.getCourses(), instructorDTO.getCourses());
+    }
+
+    @Test
+    void testToEntity() {
+        // Given
+        InstructorDTO instructorDTO = new InstructorDTO();
+        instructorDTO.setNumInstructor(1L);
+        instructorDTO.setFirstName("John");
+        instructorDTO.setLastName("Doe");
+        instructorDTO.setDateOfHire(LocalDate.of(2020, 1, 1));
+        instructorDTO.setCourses(new HashSet<>()); // Ajoutez des cours si nécessaire
+
+        // When
+        Instructor instructor = instructorMapper.toEntity(instructorDTO);
+
+        // Then
+        assertEquals(instructorDTO.getNumInstructor(), instructor.getNumInstructor());
+        assertEquals(instructorDTO.getFirstName(), instructor.getFirstName());
+        assertEquals(instructorDTO.getLastName(), instructor.getLastName());
+        assertEquals(instructorDTO.getDateOfHire(), instructor.getDateOfHire());
+        assertEquals(instructorDTO.getCourses(), instructor.getCourses());
     }
 
     @Test
