@@ -69,16 +69,19 @@ pipeline {
     }
         post {
            always {
-               script {
-                   emailext(
-                            subject: "Build ${currentBuild.currentResult}: Job '${env.JOB_NAME}' #${env.BUILD_NUMBER}",
-                            body: """
-                            <p>Build result: ${currentBuild.currentResult}</p>
-                            <p>Check console output at <a href="${env.BUILD_URL}">this link</a></p>
-                            """,
-                            to: "dhibikram00@gmail.com"
-                        )
-           }
-        }
+                  script {
+                      emailext(
+                          subject: "Build ${currentBuild.currentResult}: Job '${env.JOB_NAME}' #${env.BUILD_NUMBER}",
+                          body: """
+                              <p>Build result: ${currentBuild.currentResult}</p>
+                              <p>Check console output at <a href="${env.BUILD_URL}">this link</a></p>
+                          """,
+                          to: "dhibikram00@gmail.com",
+                          from: "tunitaste123@gmail.com",
+                          replyTo: "tunitaste123@gmail.com",
+                          mimeType: 'text/html'
+                      )
+                  }
+              }
     }
 }
