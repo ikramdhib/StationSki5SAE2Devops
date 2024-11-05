@@ -27,9 +27,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class InstructorServicesImplTest {
-    private InstructorMapper instructorMapper;
-
-
     @Mock
     private IInstructorRepository instructorRepository;
 
@@ -38,6 +35,8 @@ class InstructorServicesImplTest {
 
     @InjectMocks
     private InstructorServicesImpl instructorService;
+    @InjectMocks
+    private final InstructorMapper instructorMapper = new InstructorMapper();
 
     @BeforeEach
     void setUp() {

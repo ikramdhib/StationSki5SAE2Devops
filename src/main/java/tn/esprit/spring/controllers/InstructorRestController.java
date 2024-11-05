@@ -25,13 +25,10 @@ public class InstructorRestController {
     @Operation(description = "Add Instructor")
     @PostMapping(value = "/add")
     public ResponseEntity<InstructorDTO> addInstructor( @RequestBody InstructorDTO instructorDTO) {
-        // Convertir le DTO en entité
-        Instructor instructor = instructorMapper.toEntity(instructorDTO);
 
-        // Appeler le service pour ajouter l'instructeur
+        Instructor instructor = instructorMapper.toEntity(instructorDTO);
         Instructor savedInstructor = instructorServices.addInstructor(instructor);
 
-        // Convertir l'instructeur sauvegardé en DTO et retourner la réponse
         InstructorDTO savedInstructorDTO = instructorMapper.toDTO(savedInstructor);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedInstructorDTO);
     }

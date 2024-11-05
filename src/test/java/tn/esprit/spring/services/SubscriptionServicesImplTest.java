@@ -8,10 +8,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import tn.esprit.spring.dto.SubscriptionDTO;
-import tn.esprit.spring.entities.Skier;
-import tn.esprit.spring.entities.Subscription;
-import tn.esprit.spring.entities.SubscriptionMapper;
-import tn.esprit.spring.entities.TypeSubscription;
+import tn.esprit.spring.entities.*;
 import tn.esprit.spring.repositories.ISkierRepository;
 import tn.esprit.spring.repositories.ISubscriptionRepository;
 
@@ -24,7 +21,6 @@ import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
  class SubscriptionServicesImplTest {
-    private SubscriptionMapper subscriptionMapper;
 
     @Mock
     private ISubscriptionRepository subscriptionRepository;
@@ -34,6 +30,8 @@ import static org.mockito.Mockito.*;
 
     @InjectMocks
     private SubscriptionServicesImpl subscriptionServices;
+    @InjectMocks
+    private final SubscriptionMapper subscriptionMapper = new SubscriptionMapper();
 
     private Subscription subscription;
 
@@ -58,11 +56,11 @@ import static org.mockito.Mockito.*;
         SubscriptionDTO subscriptionDTO = subscriptionMapper.toDTO(subscription2);
 
         // Then
-        assertEquals(subscription.getNumSub(), subscriptionDTO.getNumSub());
-        assertEquals(subscription.getStartDate(), subscriptionDTO.getStartDate());
-        assertEquals(subscription.getEndDate(), subscriptionDTO.getEndDate());
-        assertEquals(subscription.getPrice(), subscriptionDTO.getPrice());
-        assertEquals(subscription.getTypeSub(), subscriptionDTO.getTypeSub());
+        assertEquals(subscription2.getNumSub(), subscriptionDTO.getNumSub());
+        assertEquals(subscription2.getStartDate(), subscriptionDTO.getStartDate());
+        assertEquals(subscription2.getEndDate(), subscriptionDTO.getEndDate());
+        assertEquals(subscription2.getPrice(), subscriptionDTO.getPrice());
+        assertEquals(subscription2.getTypeSub(), subscriptionDTO.getTypeSub());
     }
 
     @Test
