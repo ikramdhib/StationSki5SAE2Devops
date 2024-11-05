@@ -9,7 +9,6 @@ import lombok.*;
 import lombok.experimental.FieldDefaults;
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @FieldDefaults(level=AccessLevel.PRIVATE)
@@ -23,7 +22,7 @@ public class Subscription implements Serializable {
 	LocalDate startDate;
 	LocalDate endDate;
 	Float price;
-//	@Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING)
 	TypeSubscription typeSub;
 
 }

@@ -1,15 +1,14 @@
 package tn.esprit.spring.dto;
 
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 import tn.esprit.spring.entities.TypeSubscription;
 
 import java.time.LocalDate;
-
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
-@ToString
 public class SubscriptionDTO {
     private Long numSub;
     private LocalDate startDate;

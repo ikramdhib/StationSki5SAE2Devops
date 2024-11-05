@@ -3,8 +3,12 @@ package tn.esprit.spring.controllers;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import tn.esprit.spring.dto.SubscriptionDTO;
 import tn.esprit.spring.entities.Subscription;
+import tn.esprit.spring.entities.SubscriptionMapper;
 import tn.esprit.spring.entities.TypeSubscription;
 import tn.esprit.spring.services.ISubscriptionServices;
 
@@ -19,12 +23,17 @@ import java.util.Set;
 public class SubscriptionRestController {
 
     private final ISubscriptionServices subscriptionServices;
+    private final SubscriptionMapper subscriptionMapper;
 
-    @Operation(description = "Add Subscription ")
+    @Operation(description = "Add Subscription")
     @PostMapping(value = "/add")
-    public Subscription addSubscription(@RequestBody Subscription subscriptionTDO){
-        return  subscriptionServices.addSubscription(subscriptionTDO);
+    public ResponseEntity<SubscriptionDTO> addSubscription(@RequestBody SubscriptionDTO subscriptionDTO) {
+        Subscription subscription = subscriptionMapper.toEntity(subscriptionDTO);
+        Subscription savedSubscription = subscriptionServices.addSubscription(subscription);
+        SubscriptionDTO savedSubscriptionDTO = subscriptionMapper.toDTO(savedSubscription);
+        return ResponseEntity.status(HttpStatus.CREATED).body(savedSubscriptionDTO);
     }
+
     @Operation(description = "Retrieve Subscription by Id")
     @GetMapping(value = "/get/{id-subscription}")
     public Subscription getById(@PathVariable("id-subscription") Long numSubscription){
@@ -36,11 +45,15 @@ public class SubscriptionRestController {
     public Set<Subscription> getSubscriptionsByType(@PathVariable("typeSub") TypeSubscription typeSubscription){
         return subscriptionServices.getSubscriptionByType(typeSubscription);
     }
-    @Operation(description = "Update Subscription ")
+    @Operation(description = "Update Subscription")
     @PutMapping(value = "/update")
-    public Subscription updateSubscription(@RequestBody Subscription subscriptionTDO){
-        return  subscriptionServices.updateSubscription(subscriptionTDO);
+    public ResponseEntity<SubscriptionDTO> updateSubscription(@RequestBody SubscriptionDTO subscriptionDTO) {
+        Subscription subscription = subscriptionMapper.toEntity(subscriptionDTO);
+        Subscription updatedSubscription = subscriptionServices.updateSubscription(subscription);
+        SubscriptionDTO updatedSubscriptionDTO = subscriptionMapper.toDTO(updatedSubscription);
+        return ResponseEntity.ok(updatedSubscriptionDTO);
     }
+
     @Operation(description = "Retrieve Subscriptions created between two dates")
     @GetMapping(value = "/all/{date1}/{date2}")
     public List<Subscription> getSubscriptionsByDates(@PathVariable("date1") LocalDate startDate,
