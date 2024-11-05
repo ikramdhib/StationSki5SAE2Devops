@@ -36,8 +36,8 @@ services:
     ports:
       - "4200:4200"
     depends_on:
-      - db-mysql
-      - station-ski
+      - mysqldb
+      - stationski
     restart: unless-stopped
 volumes:
   db:
