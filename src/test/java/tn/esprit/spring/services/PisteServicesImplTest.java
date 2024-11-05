@@ -9,15 +9,14 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+import tn.esprit.spring.dto.PisteDTO;
 import tn.esprit.spring.entities.Color;
 import tn.esprit.spring.entities.Piste;
+import tn.esprit.spring.entities.Skier;
 import tn.esprit.spring.repositories.*;
 
 
-import java.util.ArrayList;
-
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -37,7 +36,33 @@ class PisteServicesImplTest {
 
     Piste pisteB = Piste.builder().namePiste("Green Valley").color(Color.BLUE).length(800).build();
 
+    @Test
+    void testPisteDTO() {
+        PisteDTO pisteDTO = new PisteDTO();
 
+        Long numPiste = 1L;
+        String namePiste = "Piste 1";
+        Color color = Color.valueOf("GREEN");
+        int length = 200;
+        int slope = 15;
+        Set<Skier> skiers = new HashSet<>();
+
+        // Utilisation des setters
+        pisteDTO.setNumPiste(numPiste);
+        pisteDTO.setNamePiste(namePiste);
+        pisteDTO.setColor(color);
+        pisteDTO.setLength(length);
+        pisteDTO.setSlope(slope);
+        pisteDTO.setSkiers(skiers);
+
+        // Assertions pour vérifier que les getters retournent les valeurs correctes
+        assertEquals(numPiste, pisteDTO.getNumPiste(), "Le numéro de piste doit correspondre");
+        assertEquals(namePiste, pisteDTO.getNamePiste(), "Le nom de la piste doit correspondre");
+        assertEquals(color, pisteDTO.getColor(), "La couleur doit correspondre");
+        assertEquals(length, pisteDTO.getLength(), "La longueur doit correspondre");
+        assertEquals(slope, pisteDTO.getSlope(), "La pente doit correspondre");
+        assertEquals(skiers, pisteDTO.getSkiers(), "Le set de skieurs doit correspondre");
+    }
 
     @Test
     void retrieveAllPistes() {
