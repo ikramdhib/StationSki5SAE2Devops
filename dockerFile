@@ -1,4 +1,4 @@
 FROM openjdk:17
 EXPOSE 8087
-ADD target/stationski5sae2devops-5.0.4.jar stationski5sae2devops-5.0.4.jar
-ENTRYPOINT ["java","-jar","/stationski5sae2devops-5.0.4.jar"]
+ADD target/stationski5sae2devops-5.0.6.jar stationski5sae2devops-5.0.6.jar
+ENTRYPOINT ["java","-jar","/stationski5sae2devops-5.0.6.jar"]
